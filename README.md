@@ -5,7 +5,6 @@
 * Implement the Tasklist Parser
 * Improved logic for Implicit Updates
 * Implement error-handling
-* Implement os.path to replace references to developer desktop files
 
 ## Scripts
 * apiCaller.py - Interfaces with Trello API using environment variables
