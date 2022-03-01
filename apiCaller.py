@@ -285,10 +285,10 @@ def postNewChecklist(request: dict):
     print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.utcnow()}")    
     
     #Formulate an HTTP request
-    requestBody = request.update(payloadAuthToken)
+    request.update(payloadAuthToken)
     requestUrl = f"{endpoint}checklists"
 
-    jsonPayload = json.loads(json.dumps(requestBody, indent=4, separators=(', ', ': ')))
+    jsonPayload = json.loads(json.dumps(request, indent=4, separators=(', ', ': ')))
     postHeaders = {
         'Accept-Encoding': 'gzip, deflate, br', 
         'Accept': '*/*', 
@@ -316,10 +316,10 @@ def postNewCheckItem(request: dict, idChecklist: str):
     print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.utcnow()}")    
     
     #Formulate an HTTP request
-    requestBody = request.update(payloadAuthToken)
+    request.update(payloadAuthToken)
     requestUrl = f"{endpoint}checklists/{idChecklist}/checkItems"
 
-    jsonPayload = json.loads(json.dumps(requestBody, indent=4, separators=(', ', ': ')))
+    jsonPayload = json.loads(json.dumps(request, indent=4, separators=(', ', ': ')))
     postHeaders = {
         'Accept-Encoding': 'gzip, deflate, br', 
         'Accept': '*/*', 

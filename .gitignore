@@ -7,3 +7,4 @@ Tasks/recycling.yml
 Tasks/stalecards.yml
 Tasks/updateblocked.yml
 Tasks/wgustudies.yml
+__pycache__/*

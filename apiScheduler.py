@@ -2,6 +2,7 @@
 
 #Get the items in joblist, figure out what should be run, build the tasks to run, and update joblist with last-run date
 
+from re import I
 import yaml
 from time import sleep
 import json
@@ -21,6 +22,7 @@ listTrelloLists = []
 listTrelloLabels = []
 
 lastReturnedCard = {}
+lastReturnedChecklist = {}
 
 #Fetch the list of scheduled Tasks and store it as a dict
 def fetchTaskList(filename: str):
@@ -50,12 +52,12 @@ def readTask(filename: str):
         if key.__contains__('New'):
             if key.__contains__('Card'):
                 createCard(value)
-        #     elif key.__contains__('Checklist'):
-        #         createChecklist(value)
-        #     elif key.__contains__('CheckItem'):
-        #         createCheckItem(value)
-        #     else:
-        #         print(f"Something went wrong. {key} is  not a valid request type.")
+            elif key.__contains__('Checklist'):
+                createChecklist(value)
+            elif key.__contains__('CheckItem'):
+                createCheckItem(value)
+            else:
+                print(f"Something went wrong. {key} is  not a valid request type.")
 
         elif key.__contains__('Update'):
             if key.__contains__('Card'):
@@ -265,17 +267,42 @@ def updateCard(updateCardDetails: dict):
 #Build a "Create Checklist" request and feed it to apiCaller #TO DO
 def createChecklist(newChecklistDetails: dict):
 
-    # newChecklistJson = {}
-    # apiCaller.postNewChecklist(newChecklistJson)
-    pass
+    idCard = newChecklistDetails.get('idCard')
+    lastReturnedChecklist.clear()
+
+    if idCard is None:
+        pass
+    elif idCard == 'self':
+        idCard = lastReturnedCard.get('id')
+
+    newChecklistDetails.update(idCard=idCard)
+    newChecklistJson = newChecklistDetails
+    newChecklistResponse = apiCaller.postNewChecklist(newChecklistJson)
+    responseMsg = newChecklistResponse[0]
+    returnedChecklist = newChecklistResponse[1]
+
+    lastReturnedChecklist.update(returnedChecklist)
+    return returnedChecklist
 
 #Build a "Create CheckItem" request and feed it to apiCaller #TO DO
 def createCheckItem(newCheckItemDetails: dict):
 
-    # newCheckItemJson = {}
-    # updateChecklistId = ''
-    # apiCaller.postNewCheckItem(newCheckItemJson, updateChecklistId)
-    pass
+    checkItemRequest = newCheckItemDetails.get('request')
+    idChecklist = checkItemRequest.get('idChecklist')
+
+    if idChecklist is None:
+        pass
+    elif idChecklist == 0:
+        idChecklist = lastReturnedChecklist.get('id')
+
+    del newCheckItemDetails['request']
+    
+    newCheckItemJson = newCheckItemDetails
+    newCheckItemResponse = apiCaller.postNewCheckItem(newCheckItemJson, idChecklist)
+    responseMsg = newCheckItemResponse[0]
+    returnedCheckItem = newCheckItemResponse[1]
+
+    return returnedCheckItem
 
 #Build an "Update Checklist request and feed it to apiCaller"
 def updateChecklist(updateChecklistDetails: dict):
@@ -315,3 +342,4 @@ readLabels()
 
 filename = f'{sys.path[0]}{os.sep}Tasks{os.sep}feedscirocco.yml'
 readTask(filename)
+print(lastReturnedChecklist)

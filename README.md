@@ -1,7 +1,6 @@
 # TrelloCardAutomation
 
 ## TO DO:
-* Implement Checklist and CheckItem functionality
 * Implement the Tasklist Parser
 * Improved logic for Implicit Updates
 * Implement error-handling

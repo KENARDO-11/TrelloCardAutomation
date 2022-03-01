@@ -21,7 +21,7 @@ New Checklist:
 #Create a New Checklist Item on the above checklist for Morning feeding time
 New CheckItem1:
   request:
-  - idChecklist: 0
+    idChecklist: 0
   name: "Morning"
   pos: "top"
   checked: False
@@ -29,7 +29,7 @@ New CheckItem1:
 #Create a New Checklist Item on the above checklist for Afternoon feeding time
 New CheckItem2:
   request:
-  - idChecklist: 0
+    idChecklist: 0
   name: "Afternoon"
   pos: "bottom"
   checked: False
