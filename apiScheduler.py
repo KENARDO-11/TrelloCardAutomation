@@ -2,7 +2,6 @@
 
 #Get the items in joblist, figure out what should be run, build the tasks to run, and update joblist with last-run date
 
-from re import I
 import yaml
 from time import sleep
 import json
@@ -31,16 +30,21 @@ def fetchTaskList(filename: str):
     
 #Analyze the taskList to determine what tasks need to be performed today, in which order #TO DO
 def parseTaskList():
+    
+    for key, value in taskList.items():
+        taskFile = f'{sys.path[0]}{os.sep}Tasks{os.sep}'
+        taskFile += value.get('File')
+        readTask(taskFile)
 
-
-
-    pass
 
 #Fetch the specified Task YAML file, read it, and call the appropriate functions in order #TO DO
 def readTask(filename: str):
 
     stream = open(filename, 'r')
     readTasks = yaml.load(stream, yaml.Loader)
+
+    if readTasks is None:
+        return
 
     numTasks = len(readTasks)
 
@@ -335,11 +339,10 @@ def makeImplicitUpdateCard(cardDetails: dict, newElements: dict):
 
     return implicitUpdateCard
 
-# fetchTaskList(f"{sys.path[0]}{os.sep}tasklist.yml") 
-
+fetchTaskList(f"{sys.path[0]}{os.sep}tasklist.yml") 
 readLists()
 readLabels()
+parseTaskList()
 
-filename = f'{sys.path[0]}{os.sep}Tasks{os.sep}feedscirocco.yml'
-readTask(filename)
-print(lastReturnedChecklist)
+filename = f'{sys.path[0]}{os.sep}Tasks{os.sep}packagetracking.yml'
+# readTask(filename)
