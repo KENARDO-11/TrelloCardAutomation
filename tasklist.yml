@@ -1,0 +1,105 @@
+---
+#A list of jobs to run, and when
+
+Task0:
+  Name: Feed Scirocco
+  File: feedscirocco.yml
+  Run Days:
+    - sunday
+    - monday
+    - tuesday
+    - wednesday
+    - thursday
+    - friday
+    - saturday
+  Last Run: never
+
+Task1:
+  Name: WGU Studies
+  File: wgustudies.yml
+  Run Days:
+    - sunday
+    - monday
+    - tuesday
+    - wednesday
+    - thursday
+    - friday
+  Last Run: never
+
+Task2:
+  Name: Japanese Studies
+  File: japanese.yml
+  Run Days:
+    - sunday
+    - monday
+    - tuesday
+    - wednesday
+    - thursday
+    - friday
+  Last Run: never
+
+Task3:
+  Name: Physical Therapy Exercises
+  File: ptexcercise.yml
+  Run Days:
+    - sunday
+    - monday
+    - tuesday
+    - wednesday
+    - thursday
+    - friday
+    - saturday
+  Last Run: never
+
+Task4:
+  Name: Move Stale Cards
+  File: stalecards.yml
+  Run Days:
+    - sunday
+    - monday
+    - tuesday
+    - wednesday
+    - thursday
+    - friday
+    - saturday
+  Last Run: never
+
+Task5:
+  Name: Cat Liter
+  File: catlitter.yml
+  Run Days:
+    - tuesday
+  Last Run: never
+
+Task6:
+  Name: Take Out Recycling
+  File: recycling.yml
+  Run Days:
+    - tuesday
+  Last Run: never
+
+Task7:
+  Name: Update Blocked Card
+  File: updateblocked.yml
+  Run Days:
+    - sunday
+    - monday
+    - tuesday
+    - wednesday
+    - thursday
+    - friday
+    - saturday
+  Last Run: never
+
+Task8:
+  Name: Package Tracking
+  File: packagetracking.yml
+  Run Days:
+    - sunday
+    - monday
+    - tuesday
+    - wednesday
+    - thursday
+    - friday
+    - saturday
+  Last Run: never

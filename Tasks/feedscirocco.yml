@@ -1,0 +1,35 @@
+---
+#Create a new card to remember to feed Scirocco
+
+#Create a New Card named "Feed Scirocco"
+New Card:
+  request:
+    nameLabels:
+    - "Scirocco"
+    nameList: "To Do Today"
+  name: "Feed Scirocco"
+  pos: "top"
+  idList: ~
+  cover:
+    color: "blue"
+
+#Create a New Checklist on the card created above
+New Checklist:
+  idCard: "self"
+  name: "Feeding Times"
+
+#Create a New Checklist Item on the above checklist for Morning feeding time
+New CheckItem1:
+  request:
+  - idChecklist: 0
+  name: "Morning"
+  pos: "top"
+  checked: False
+
+#Create a New Checklist Item on the above checklist for Afternoon feeding time
+New CheckItem2:
+  request:
+  - idChecklist: 0
+  name: "Afternoon"
+  pos: "bottom"
+  checked: False

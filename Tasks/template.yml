@@ -1,0 +1,128 @@
+---
+#A YAML template for the creation and updating of Cards, Checklists, and CheckItems
+
+
+#YAML template for creating a New Card
+New Card:
+  request:                  #list of objects fed directly to the Job Scheduler
+     nameLabels:            #list of strings (Label Name)
+     - null
+     nameList: null         #string (List Name)
+  name: ""                  #string
+  desc: ""                  #string
+  closed: False             #boolean
+  pos: ""                   #"top" OR "bottom" OR positive float
+  due: ""                   #string (date)
+  dueComplete: False        #boolean
+  idList: ""                #string (Target List ID) REQUIRED
+  idMembers:                #list of strings (Member ID)
+  - ""    
+  idLabels:                 #list of strings (Label ID)
+  - ""    
+  urlSource: ""             #string (starting in http:// OR https://)
+  fileSource: ""            #string (binary)
+  mimeType: ""              #string
+  idCardSource: ""          #string (Card ID to copy from)
+  keepFromSource:           #list of strings (properties to keep from source, if copying)
+  - ""    
+  address: ""               #string
+  locationName: ""          #string
+  coordinates: ""           #string
+  cover:    
+    color: ""               #string (Color Name)
+    brightness: ""          #"dark" OR "light"
+    url: ""                 #string (unsplash image URL)
+    idAttachment: ""        #string (Attachment ID)
+    size: ""                #"normal" OR "full"
+
+
+#YAML template for creating a New Checklist
+New Checklist:
+  idCard: ""                #string (Card ID) REQUIRED
+  name: ""                  #string
+  pos: ""                   #"top" OR "bottom" OR positive float
+  idChecklistSource: ""     #string (Checklist ID to copy from)
+
+
+#YAML template for creating a New Checklist Item
+New CheckItem:
+  request:                  #list of objects fed directly to the Job Scheduler
+    idChecklist: ""         #string (Checklist ID) REQUIRED
+  name: ""                  #string REQUIRED
+  pos: ""                   #"top" OR "bottom" OR positive float
+  checked: False            #boolean
+
+
+#YAML template for Updating a Card
+Update Card:
+  request:                  #list of objects fed directly to the Job Scheduler
+    idCard: ""              #string (Card ID) REQUIRED
+    idCustomField: null     #string (Custom Field ID)     ### Mutually Exclusive with nameCustomField ###
+    nameCustomField: null   #string (Custom Field Name)   ### Mutually Exclusive with idCustomField ###
+    valueCustomField: null  #string (Custom Field Value)
+  #                                  #json: 'value': {'text': 'SomeText'} --- Only supply "SomeText"
+    nameLabels:             #list of strings (Label Name)
+    - null
+    nameList: null          #string (List Name) 
+  name: ""                  #string
+  desc: ""                  #string
+  closed: False             #boolean
+  idMembers:                #list of strings (Member ID)
+  - ""    
+  idAttachmentCover: null   #string (Attachment ID to use as a cover) OR null
+  idList: ""                #string (Target List ID)   
+  idLabels:                 #list of strings (Label ID)
+  - ""    
+  idBoard:                  #string (Board ID)
+  pos: ""                   #"top" OR "bottom" OR positive float
+  due: ""                   #string (date)
+  dueComplete: False        #boolean
+  subscribed: False         #boolean
+  address: ""               #string
+  locationName: ""          #string
+  coordinates: ""           #string
+  cover:  
+    color: ""               #string (Color Name)
+    brightness: ""          #"dark" OR "light"
+    url: ""                 #string (unsplash image URL)
+    idAttachment: ""        #string (Attachment ID)
+    size: ""                #"normal" OR "full"
+
+
+#YAML template for updating a Checklist
+Update Checklist:
+  request:                  #list of objects fed directly to the Job Scheduler
+    idChecklist: ""         #string (Checklist ID)
+  name: ""                  #string
+  pos: ""                   #"top" OR "bottom" OR positive float
+
+
+#YAML template for Updating a Checklist Item
+Update CheckItem:
+  request:                  #list of objects fed directly to the Job Scheduler
+    idCard: ""              #string (Card ID) REQUIRED
+    idCheckItem: ""         #string (Checklist Item ID) REQUIRED
+  name: ""                  #string
+  state: ""                 #"complete" OR "incomplete"
+  idChecklist: ""           #string (Checklist ID of parent Checklist)
+  pos: ""                   #"top" OR "bottom" OR positive float
+
+
+#Special key-value pairs for the Job Scheduler:
+Special Values:
+  idCard: ~                 #"self"
+  #                         #Used in conjunction with a New Card block. The Job Scheduler will use the ID for the New Card
+  #  
+  idChecklist: ~            #int in range(number of New Checklist blocks in this job)
+  #                         #Used in conjunction with a New Checklist block. The Job Scheduler will use the ID of the specified New Checklist
+  #  
+  idCheckItem: ~            #int in range(number of New CheckItem blocks in this job)
+  #                         #Used in conjunction with a New CheckItem block. The Job Scheduler will use the ID of the specified New CheckItem
+  #
+  Cover Colors:             #Cover Color reference
+   - personal: green        #Only use the Key OR the Value
+   - domestic: blue
+   - work: red
+   - school: black
+   - automotive: yellow
+   - noCover: ""
