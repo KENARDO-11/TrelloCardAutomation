@@ -308,10 +308,10 @@ def makeImplicitUpdateCard(cardDetails: dict, newElements: dict):
 
     return implicitUpdateCard
 
-# fetchTaskList("C:\\Users\\SUPERDICKS MkVII\\Documents\\Projects\\KENARDONET\\Scripts\\APIs\\Trello\\TrelloCardAutomation\\tasklist.yml") 
+# fetchTaskList(f"{sys.path[0]}{os.sep}tasklist.yml") 
 
 readLists()
 readLabels()
-filename = 'C:\\Users\\SUPERDICKS MkVII\\Documents\\Projects\\KENARDONET\\Scripts\\APIs\\Trello\\TrelloCardAutomation\\Tasks\\feedscirocco.yml'
 
+filename = f'{sys.path[0]}{os.sep}Tasks{os.sep}feedscirocco.yml'
 readTask(filename)
