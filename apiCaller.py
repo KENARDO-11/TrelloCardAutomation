@@ -151,7 +151,7 @@ def getCustomFieldIds():
     print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.utcnow()}\n")
     return listCustomFieldIds
 
-#Get the {option}s for the "Epic" CustomField
+#Get the {option}s for the "Epic" CustomField #MOVE THIS TO apiScheduler
 def getEpicOptions():
     print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.utcnow()}")
 
@@ -343,7 +343,9 @@ def postNewCheckItem(request: dict, idChecklist: str):
     print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.utcnow()}\n")
     return [responseMsg, response.json()]
 
-
+#TO DO:
+    #getCardActions() - see TrelloCardAge for reference on getting card actions
+    #getPluginData() - see notepad.py re: package tracking
 
 # TEST FUNCTIONS up to 3 times, sleeping for 2 seconds if it fails and backing off each time
 def main():
