@@ -1,9 +1,13 @@
 # TrelloCardAutomation
 
 ## TO DO:
-* Implement the Tasklist Parser
+* Add features to the Tasklist Parser
 * Improved logic for Implicit Updates
 * Implement error-handling
+* Cover color key binding
+* Handling for card -> checklist -> checkitem dependency flow
+* More implicit update options
+* General cleanup
 
 ## Scripts
 * apiCaller.py - Interfaces with Trello API using environment variables

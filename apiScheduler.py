@@ -31,9 +31,13 @@ def fetchTaskList(filename: str):
 #Analyze the taskList to determine what tasks need to be performed today, in which order #TO DO
 def parseTaskList():
     
+    #Still need to add run day handling
+    taskIndex = 0
     for key, value in taskList.items():
+        taskIndex += 1 
         taskFile = f'{sys.path[0]}{os.sep}Tasks{os.sep}'
         taskFile += value.get('File')
+        print(f"Starting Task {taskIndex}: {value.get('Name')}")
         readTask(taskFile)
 
 
@@ -44,9 +48,10 @@ def readTask(filename: str):
     readTasks = yaml.load(stream, yaml.Loader)
 
     if readTasks is None:
+        print("Nothing to do. Skipping.")
         return
 
-    numTasks = len(readTasks)
+    # numTasks = len(readTasks)
 
     #I like this logic for iterating through the Task file and pointing to request functions
     #But it doesn't take into account the Card -> Checklist -> CheckItem dependency flow
@@ -66,12 +71,12 @@ def readTask(filename: str):
         elif key.__contains__('Update'):
             if key.__contains__('Card'):
                 updateCard(value)
-        #     elif key.__contains__('Checklist'):
-        #         updateChecklist(value)
-        #     elif key.__contains__('CheckItem'):
-        #         updateCheckItem(value)
-        #     else:
-        #         print(f"Something went wrong. {key} is  not a valid request type.")
+            elif key.__contains__('Checklist'):
+                updateChecklist(value)
+            elif key.__contains__('CheckItem'):
+                updateCheckItem(value)
+            else:
+                print(f"Something went wrong. {key} is  not a valid request type.")
         
         else:
             print(f"Something went wrong. {key} is not a valid request type.")
@@ -268,7 +273,7 @@ def updateCard(updateCardDetails: dict):
     lastReturnedCard.update(returnedCard)
     return returnedCard
 
-#Build a "Create Checklist" request and feed it to apiCaller #TO DO
+#Build a "Create Checklist" request and feed it to apiCaller
 def createChecklist(newChecklistDetails: dict):
 
     idCard = newChecklistDetails.get('idCard')
@@ -288,7 +293,7 @@ def createChecklist(newChecklistDetails: dict):
     lastReturnedChecklist.update(returnedChecklist)
     return returnedChecklist
 
-#Build a "Create CheckItem" request and feed it to apiCaller #TO DO
+#Build a "Create CheckItem" request and feed it to apiCaller
 def createCheckItem(newCheckItemDetails: dict):
 
     checkItemRequest = newCheckItemDetails.get('request')
@@ -343,6 +348,3 @@ fetchTaskList(f"{sys.path[0]}{os.sep}tasklist.yml")
 readLists()
 readLabels()
 parseTaskList()
-
-filename = f'{sys.path[0]}{os.sep}Tasks{os.sep}packagetracking.yml'
-# readTask(filename)
