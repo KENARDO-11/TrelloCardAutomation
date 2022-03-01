@@ -40,7 +40,6 @@ def parseTaskList():
         print(f"Starting Task {taskIndex}: {value.get('Name')}")
         readTask(taskFile)
 
-
 #Fetch the specified Task YAML file, read it, and call the appropriate functions in order #TO DO
 def readTask(filename: str):
 

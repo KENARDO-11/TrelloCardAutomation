@@ -345,61 +345,63 @@ def postNewCheckItem(request: dict, idChecklist: str):
 
 
 
-#TEST FUNCTIONS up to 3 times, sleeping for 2 seconds if it fails and backing off each time
-# def main():
-#     sleepTime = 3
-#     for b in range(0, 3):
-#         try:
-#             getListIds()
-#             getCards()
-#             getCardIds()
-#             getLabelIds()
-#             getCustomFields()
-#             getCustomFieldIds()
-#             getEpicOptions()
+# TEST FUNCTIONS up to 3 times, sleeping for 2 seconds if it fails and backing off each time
+def main():
+    print("I'm doing things!")
+    sleepTime = 3
+    for b in range(0, 3):
+        try:
+            getListIds()
+            getCards()
+            getCardIds()
+            getLabelIds()
+            getCustomFields()
+            getCustomFieldIds()
+            getEpicOptions()
 
-#             print("List of List IDs:")
-#             for i in range(len(listListIds)):
-#                 print(f"{i+1}. {listListIds[i]}")
-#                 i += 1
-#             print()
+            print("List of List IDs:")
+            for i in range(len(listListIds)):
+                print(f"{i+1}. {listListIds[i]}")
+                i += 1
+            print()
 
-#             print("List of Card IDs:")
-#             for i in range(len(listCardIds)):
-#                 print(f"{i+1}. {listCardIds[i]}")
-#                 i += 1
-#             print()
+            print("List of Card IDs:")
+            for i in range(len(listCardIds)):
+                print(f"{i+1}. {listCardIds[i]}")
+                i += 1
+            print()
 
-#             print("List of Label IDs:")
-#             for i in range(len(listLabelIds)):
-#                 print(f"{i+1}. {listLabelIds[i]}")
-#                 i += 1
-#             print()
+            print("List of Label IDs:")
+            for i in range(len(listLabelIds)):
+                print(f"{i+1}. {listLabelIds[i]}")
+                i += 1
+            print()
 
-#             print("List of Custom Field IDs:")
-#             for i in range(len(listCustomFieldIds)):
-#                 print(f"{i+1}. {listCustomFieldIds[i]}")
-#                 i += 1
-#             print()     
+            print("List of Custom Field IDs:")
+            for i in range(len(listCustomFieldIds)):
+                print(f"{i+1}. {listCustomFieldIds[i]}")
+                i += 1
+            print()     
             
-#             print("List of Epic Options:")
-#             for i in range(len(listEpicOptions)):
-#                 print(f"{i+1}. {listEpicOptions[i]}")
-#                 i += 1          
-#             errored = None
+            print("List of Epic Options:")
+            for i in range(len(listEpicOptions)):
+                print(f"{i+1}. {listEpicOptions[i]}")
+                i += 1          
+            errored = None
 
-#         except Exception as errored:
-#             exceptMsg = str(errored).replace(API_KEY, "API Key Hidden-")
-#             exceptMsg = exceptMsg.replace(API_TOKEN, "API Token Hidden-")
-#             pass
+        except Exception as errored:
+            exceptMsg = str(errored).replace(API_KEY, "API Key Hidden-")
+            exceptMsg = exceptMsg.replace(API_TOKEN, "API Token Hidden-")
+            pass
 
-#         try: 
-#             errored
-#             break
-#         except NameError:
-#             print(f"{exceptMsg}\n Sleeping for {sleepTime} seconds before trying again...")
-#             sleep(sleepTime)
-#             sleepTime *= 2
-#         b += 1
+        try: 
+            errored
+            break
+        except NameError:
+            print(f"{exceptMsg}\n Sleeping for {sleepTime} seconds before trying again...")
+            sleep(sleepTime)
+            sleepTime *= 2
+        b += 1
 
-# main()
+if __name__ == '__main__':
+    main()
