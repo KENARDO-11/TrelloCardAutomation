@@ -1,7 +1,6 @@
 #This function determines what API calls should be run on a given day, then coordinates the requests
 
 #Get the items in joblist, figure out what should be run, build the tasks to run, and update joblist with last-run date
-
 import yaml
 from time import sleep
 import json
@@ -110,6 +109,32 @@ def readLabels():
     
     return listTrelloLabels
 
+#Get the {option}s for the "Epic" CustomField
+def getEpicOptions():
+
+    #Make sure getCustomFields() has been run at least once
+    listCustomFields = apiCaller.getCustomFields()
+
+    #Iterate through listCustomFields[] to find the 'Epic' field, and set it as epicField
+    for i in range(len(listCustomFields)):
+        if listCustomFields[i].get('name') == 'Epic':
+            print(f"Found Epic at Index {i}")
+            epicField = listCustomFields[i]
+            break
+        else:
+            epicField = None
+        i += 1          
+
+    epicOptions = epicField.get('options')
+    #Iterate through epicField[] and add each 'id' and 'value' to listEpicOptions[]
+    listEpicOptions = []
+    for b in range(len(epicOptions)):
+        tempDict = {'id': epicOptions[b].get('id'), 'value': epicOptions[b].get('value')}
+        listEpicOptions.append(tempDict)
+        b += 1
+
+    return listEpicOptions
+
 #Build a "Create Card" request and feed it to apiCaller
 def createCard(newCardDetails: dict):
 
@@ -120,8 +145,14 @@ def createCard(newCardDetails: dict):
     nameLabels = requestDetails.get('nameLabels')
     nameList = requestDetails.get('nameList')
     listIdLabels = []
-    newCardCover = newCardDetails.get('cover')    
     lastReturnedCard.clear()
+    
+    #Variables to hold values that can't be set by Create Card and require an implicit update
+    idCustomField = requestDetails.get('idCustomField')
+    nameCustomField = requestDetails.get('nameCustomField')
+    valueCustomField = requestDetails.get('valueCustomField')   
+    newCardCover = newCardDetails.get('cover')    
+    
 
     #Get the List ID if there is a named List, but no specified IDs
     if idList is None:
@@ -151,7 +182,7 @@ def createCard(newCardDetails: dict):
 
     del newCardDetails['request']
 
-    #Strip the cover and save it for later if needed
+    #Strip the cover if it's present
     if newCardCover is None:
         newCardJson = newCardDetails
     else:
@@ -164,13 +195,11 @@ def createCard(newCardDetails: dict):
     returnedCard = newCardResponse[1]
 
     #Perform implicit updates for card details that can't be added during Create
-    if newCardCover is not None:
-        #Just gonna hack this together for now for testing
-        #It'll make more sense once I add more logic to makeImplicitUpdateCard()
+    if newCardCover is not None or idCustomField is not None or nameCustomField is not None or valueCustomField is not None:
         newElements = {
-            'idCustomField': None,
-            'nameCustomField': None,
-            'valueCustomField': None,
+            'idCustomField': idCustomField,
+            'nameCustomField': nameCustomField,
+            'valueCustomField': valueCustomField,
             'cover': newCardCover
         }
         implicitUpdateCard = makeImplicitUpdateCard(returnedCard, newElements)
@@ -180,7 +209,7 @@ def createCard(newCardDetails: dict):
     lastReturnedCard.update(returnedCard)
     return returnedCard
 
-#Build an "Update Card" rquest and feed it to apiCaller #IN PROGRESS
+#Build an "Update Card" rquest and feed it to apiCaller
 def updateCard(updateCardDetails: dict):
     
     #Instantiate local variables
@@ -204,11 +233,8 @@ def updateCard(updateCardDetails: dict):
     elif idCard == 'self':
         idCard = lastReturnedCard.get('id')
     elif idCard == 'list':
-        #Use idList or nameList to get all the cards in a list
-        #Use that to create a list of cards to try updating
-        #Give that list to another function that will iterate through the list of cards and call back here
-            #to update each card in the list
-        pass
+        makeIterativeUpdateCard(updateCardDetails)
+        return
 
     #Get the Custom Field ID to update if 'idCustomField' is empty but a custom field is named.
     if idCustomField is None:
@@ -226,8 +252,6 @@ def updateCard(updateCardDetails: dict):
     #Get the List ID if 'idList' is empty but a new list is named
     if idList is None:
         if nameList is None:
-            #print('Error')
-            #Need to build some actual error handling here
             pass
         else:
             newIndex = dictTrelloLists.get(nameList)
@@ -238,8 +262,6 @@ def updateCard(updateCardDetails: dict):
     #Get the Label IDs to update if 'idLabels' is empty but there are named Labels
     if idLabels is None:
         if nameLabels is None:
-            #print('Error')    
-            #Need to build some actual error handling here
             pass
         else:
             for i in range(len(nameLabels)):
@@ -255,7 +277,7 @@ def updateCard(updateCardDetails: dict):
             customFieldRequest = {'idCustomField': '', 'value': ''}
             
             if nameCustomField == 'Epic':
-                epicOptions = apiCaller.getEpicOptions()
+                epicOptions = getEpicOptions()
                 for i in range(len(epicOptions)):
                     epicValue = epicOptions[i].get('value')
                     if epicValue.get('text') == valueCustomField:
@@ -270,8 +292,7 @@ def updateCard(updateCardDetails: dict):
             customFieldRequest.update(idCustomField=idCustomField, value=valueCustomField, idValue=idValue)
             updateCardResponse = apiCaller.putUpdateCard(customFieldRequest, idCard)
         else:
-            #idCustomField was None, but valueCustomField was not None
-            pass
+            print("Error: A Custom Field Value was specified without a Custom Field ID or Name")
 
     #Some cleanup
     del updateCardDetails['request']
@@ -359,9 +380,42 @@ def makeImplicitUpdateCard(cardDetails: dict, newElements: dict):
 
     return implicitUpdateCard
 
-#Use a list to do generate updateCard() calls for each card in the list #TO DO
-def makeIterativeUpdateCard(listCardDetails: list):
-    pass
+#Use a list to do generate updateCard() calls for each card in the list
+def makeIterativeUpdateCard(listCardDetails: dict):
+    requestDetails = listCardDetails.get('request')
+    idList = listCardDetails.get('idList')
+    nameList = requestDetails.get('nameList')
+    listIdCards = []
+
+    #Get the List ID if 'idList' is empty but a new list is named
+    if idList is None:
+        if nameList is None:
+            pass
+        else:
+            newIndex = dictTrelloLists.get(nameList)
+            newList = listTrelloLists[newIndex]
+            idList = newList.get('id')
+            listCardDetails.update(idList=idList)
+    
+    listCardsInList = apiCaller.getCardsInList(idList)
+
+    #Iterate through the list of cards in the List and make a list of Card IDs
+    for i in range(len(listCardsInList)):
+        tempIdCard = listCardsInList[i].get('id')
+        listIdCards.append(tempIdCard)
+        i += 1
+    
+    #Iterate through the list of Card IDs and call updateCard() for each one
+    for i in range(len(listIdCards)):
+        tempRequest = requestDetails
+        tempRequest.update(idCard=listIdCards[i],idList=idList, nameList=None)
+        tempUpdateCard = listCardDetails
+        tempUpdateCard.update(request=tempRequest)
+
+        updateCard(tempUpdateCard)
+        i += 1
+
+    return
 
 fetchTaskList(f"{sys.path[0]}{os.sep}tasklist.yml") 
 readLists()

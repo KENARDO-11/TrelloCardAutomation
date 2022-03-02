@@ -38,7 +38,6 @@ listCardIds = []
 listLabelIds = []
 listCustomFields = []
 listCustomFieldIds = []
-listEpicOptions = []
 
 #Get the Board's List IDs
 def getListIds():
@@ -94,6 +93,26 @@ def getCardIds():
 
     print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.utcnow()}\n")
     return listCardIds
+
+#Get the Cards in a List
+def getCardsInList(idList: str):
+    print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.utcnow()}")
+    
+    #Formulate and send an HTTP request. Store the response and parse it as json.
+    requestBody = payloadAuthToken
+    requestUrl = f"{endpoint}lists/{idList}/cards"
+    response = requests.get(requestUrl, params=requestBody)
+    response.raise_for_status()
+    jsonResponse = response.json()
+
+    #Populate listCardsInList[] with the card info from jsonResponse
+    listCardsInList = jsonResponse
+
+    print(f"Found {len(listCardsInList)} Cards.")
+
+
+    print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.utcnow()}\n")
+    return listCardsInList
 
 #Get the Board's Label IDs
 def getLabelIds():
@@ -151,33 +170,40 @@ def getCustomFieldIds():
     print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.utcnow()}\n")
     return listCustomFieldIds
 
-#Get the {option}s for the "Epic" CustomField #MOVE THIS TO apiScheduler
-def getEpicOptions():
+#Get the actions[] for the provided idCard and return them
+def getCardActions(idCard: str):
     print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.utcnow()}")
 
-    #Make sure getCustomFields() has been run at least once
-    getCustomFields()
 
-    #Iterate through listCustomFields[] to find the 'Epic' field, and set it as epicField
-    for i in range(len(listCustomFields)):
-        if listCustomFields[i].get('name') == 'Epic':
-            print(f"Found Epic at Index {i}")
-            epicField = listCustomFields[i]
-            break
-        else:
-            epicField = None
-        i += 1          
+#     payloadActionRequest = {'filter': ['createCard', 'convertToCardFromCheckItem', 'copyCard', 'moveCardToBoard']}
+#     payloadActionRequest.update(payloadAuthToken)    
+#     urlCardRequest = f"https://api.trello.com/1/cards/{listCardIds[index]}/actions"
 
-    epicOptions = epicField.get('options')
-    #Iterate through epicField[] and add each 'id' and 'value' to listEpicOptions[]
-    listEpicOptions.clear()
-    for b in range(len(epicOptions)):
-        tempDict = {'id': epicOptions[b].get('id'), 'value': epicOptions[b].get('value')}
-        listEpicOptions.append(tempDict)
-        b += 1
+#     response = requests.get(urlCardRequest, params=payloadActionRequest)
+
+#     #Log Request Status
+#     responsetext = response.text
+#     response.raise_for_status()
+
+#     jsonCreateDate = response.json()
+
+#     createDate = jsonCreateDate[0].get('date')
+    print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.utcnow()}\n")
+    return 
+
+#Get the {pluginData} for the provided idCard
+def getPluginData(idCard: str):
+    print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.utcnow()}")
+
+        #Get the pluginData for the delivery status
+        #request GET /1/cards/{idCard}/pluginData
+        #if response contains {"value": {"statuses": [ {"status": "DELIVERED"} ] } }
+        #the package has been delivered, move this to the archive
 
     print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.utcnow()}\n")
-    return listEpicOptions
+    return
+
+#
 
 #Create a new Card, using the json provided in the (request)
 def postNewCard(request: dict):
@@ -343,10 +369,6 @@ def postNewCheckItem(request: dict, idChecklist: str):
     print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.utcnow()}\n")
     return [responseMsg, response.json()]
 
-#TO DO:
-    #getCardActions() - see TrelloCardAge for reference on getting card actions
-    #getPluginData() - see notepad.py re: package tracking
-
 # TEST FUNCTIONS up to 3 times, sleeping for 2 seconds if it fails and backing off each time
 def main():
     print("I'm doing things!")
@@ -359,7 +381,6 @@ def main():
             getLabelIds()
             getCustomFields()
             getCustomFieldIds()
-            getEpicOptions()
 
             print("List of List IDs:")
             for i in range(len(listListIds)):
@@ -384,11 +405,7 @@ def main():
                 print(f"{i+1}. {listCustomFieldIds[i]}")
                 i += 1
             print()     
-            
-            print("List of Epic Options:")
-            for i in range(len(listEpicOptions)):
-                print(f"{i+1}. {listEpicOptions[i]}")
-                i += 1          
+                  
             errored = None
 
         except Exception as errored:
