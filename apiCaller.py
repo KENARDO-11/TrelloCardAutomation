@@ -170,7 +170,7 @@ def getCustomFieldIds():
     print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.utcnow()}\n")
     return listCustomFieldIds
 
-#Get the actions[] for the provided idCard and return them
+#Get the actions[] for the provided idCard and return them #TO DO
 def getCardActions(idCard: str):
     print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.utcnow()}")
 
@@ -195,15 +195,23 @@ def getCardActions(idCard: str):
 def getPluginData(idCard: str):
     print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.utcnow()}")
 
-        #Get the pluginData for the delivery status
-        #request GET /1/cards/{idCard}/pluginData
-        #if response contains {"value": {"statuses": [ {"status": "DELIVERED"} ] } }
-        #the package has been delivered, move this to the archive
+    #Force the plugin to update by changing the front of the card
+    forceUpdateJson = {'cover': {'color': 'green'}}
+    forceUpdateJson.update(payloadAuthToken)
+
+    putUpdateCard(forceUpdateJson, idCard)
+    forceUpdateJson.update(cover='')
+    putUpdateCard(forceUpdateJson, idCard)
+
+    #Generate and transmit a GET pluginData request
+    requestBody = payloadAuthToken
+    requestUrl = f"{endpoint}cards/{idCard}/pluginData"
+    response = requests.get(requestUrl, params=requestBody)
+    response.raise_for_status()
+    jsonResponse = response.json()
 
     print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.utcnow()}\n")
-    return
-
-#
+    return jsonResponse
 
 #Create a new Card, using the json provided in the (request)
 def postNewCard(request: dict):

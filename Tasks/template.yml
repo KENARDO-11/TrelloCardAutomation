@@ -90,6 +90,8 @@ Update Card:
     url: ""                 #string (unsplash image URL)
     idAttachment: ""        #string (Attachment ID)
     size: ""                #"normal" OR "full"
+  jobExtensions:            #list of calls to jobExtensions library
+   - ''
 
 
 #YAML template for updating a Checklist
@@ -110,7 +112,6 @@ Update CheckItem:
   idChecklist: ""           #string (Checklist ID of parent Checklist)
   pos: ""                   #"top" OR "bottom" OR positive float
 
-
 #Special key-value pairs for the Job Scheduler:
 Special Values:
   idCard: ~                 #"self"
@@ -130,4 +131,4 @@ Special Values:
    - work: red
    - school: black
    - automotive: yellow
-   - noCover: ""
+   - noCover: ""            #Specify cover: "" instead of cover: color: ""

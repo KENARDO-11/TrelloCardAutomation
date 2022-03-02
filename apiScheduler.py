@@ -222,9 +222,10 @@ def updateCard(updateCardDetails: dict):
     nameLabels = requestDetails.get('nameLabels')
     nameList = requestDetails.get('nameList')
     valueCustomField = requestDetails.get('valueCustomField')
+    jobExtensions = updateCardDetails.get('jobExtensions')
     idValue = None
     listIdLabels = []
-    
+
     #Get the Card ID to update if 'idCard' is 'self'
     if idCard is None:
         print('Error: no Card ID provided')
@@ -294,8 +295,17 @@ def updateCard(updateCardDetails: dict):
         else:
             print("Error: A Custom Field Value was specified without a Custom Field ID or Name")
 
+    #Call Extensions if they're requested
+    if jobExtensions is not None:
+        for i in range(len(jobExtensions)):
+            extensionCall = jobExtensions[i]
+            enrichedData = exec(extensionCall)
+            updateCardDetails.update(enrichedData)
+            i += 1
+
     #Some cleanup
     del updateCardDetails['request']
+    del updateCardDetails['jobExtensions']
     lastReturnedCard.clear()
     updateCardJson = updateCardDetails
 

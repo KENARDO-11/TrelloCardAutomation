@@ -14,6 +14,7 @@
 ## Scripts
 * apiCaller.py - Interfaces with Trello API using environment variables
 * apiScheduler.py - Parses tasklists and tasks and implements apiCaller functions accordingly
+* apiExtensions.py - Performs data enrichment required to fulfill specific tasks beyond the basic functionality
 
 ## Tasklist
 tasklist.yml is parsed by apiScheduler to determine what tasks to perform during a given run.
