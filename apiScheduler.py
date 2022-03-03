@@ -90,6 +90,7 @@ def readTask(filename: str):
             
 #Get the information on Lists
 def readLists():
+    listTrelloLists.clear()
     listTrelloLists.extend(getListIds())
     
     for i in range(len(listTrelloLists)):
@@ -97,10 +98,11 @@ def readLists():
         dictTrelloLists.update(tempDict)
         i += 1
     
-    return listTrelloLists
+    return dictTrelloLists, listTrelloLists
 
 #get the information on Labels
 def readLabels():
+    listTrelloLabels.clear()
     listTrelloLabels.extend(getLabelIds())
 
     for i in range(len(listTrelloLabels)):
@@ -108,7 +110,7 @@ def readLabels():
         dictTrelloLabels.update(tempDict)
         i += 1
     
-    return listTrelloLabels
+    return dictTrelloLabels, listTrelloLabels
 
 #Get the {option}s for the "Epic" CustomField
 def getEpicOptions():

@@ -171,25 +171,19 @@ def getCustomFieldIds():
     return listCustomFieldIds
 
 #Get the actions[] for the provided idCard and return them #TO DO
-def getCardActions(idCard: str):
+def getCardActions(idCard: str, filter: list):
     print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.utcnow()}")
 
+    #Formulate and send an HTTP request. Store the reesponse and parse it as json.
+    payloadActionRequest = {'filter': filter}
+    payloadActionRequest.update(payloadAuthToken)    
+    urlCardRequest = f"{endpoint}cards/{idCard}/actions"
+    response = requests.get(urlCardRequest, params=payloadActionRequest)
+    response.raise_for_status()
+    jsonActions = response.json()
 
-#     payloadActionRequest = {'filter': ['createCard', 'convertToCardFromCheckItem', 'copyCard', 'moveCardToBoard']}
-#     payloadActionRequest.update(payloadAuthToken)    
-#     urlCardRequest = f"https://api.trello.com/1/cards/{listCardIds[index]}/actions"
-
-#     response = requests.get(urlCardRequest, params=payloadActionRequest)
-
-#     #Log Request Status
-#     responsetext = response.text
-#     response.raise_for_status()
-
-#     jsonCreateDate = response.json()
-
-#     createDate = jsonCreateDate[0].get('date')
     print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.utcnow()}\n")
-    return 
+    return jsonActions
 
 #Get the {pluginData} for the provided idCard
 def getPluginData(idCard: str):
