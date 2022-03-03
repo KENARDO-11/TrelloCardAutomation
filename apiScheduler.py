@@ -9,7 +9,8 @@ import datetime
 import os
 import sys
 from dotenv import load_dotenv
-import apiCaller
+from apiCaller import *
+from apiExtensions import *
 
 #Some global lists and dicts
 taskList = {}
@@ -89,7 +90,7 @@ def readTask(filename: str):
             
 #Get the information on Lists
 def readLists():
-    listTrelloLists.extend(apiCaller.getListIds())
+    listTrelloLists.extend(getListIds())
     
     for i in range(len(listTrelloLists)):
         tempDict = {listTrelloLists[i].get('name'): i}
@@ -100,7 +101,7 @@ def readLists():
 
 #get the information on Labels
 def readLabels():
-    listTrelloLabels.extend(apiCaller.getLabelIds())
+    listTrelloLabels.extend(getLabelIds())
 
     for i in range(len(listTrelloLabels)):
         tempDict = {listTrelloLabels[i].get('name'): i}
@@ -113,7 +114,7 @@ def readLabels():
 def getEpicOptions():
 
     #Make sure getCustomFields() has been run at least once
-    listCustomFields = apiCaller.getCustomFields()
+    listCustomFields = getCustomFields()
 
     #Iterate through listCustomFields[] to find the 'Epic' field, and set it as epicField
     for i in range(len(listCustomFields)):
@@ -190,7 +191,7 @@ def createCard(newCardDetails: dict):
         newCardJson = newCardDetails
 
     #Transmit the Create Card request
-    newCardResponse = apiCaller.postNewCard(newCardJson)
+    newCardResponse = postNewCard(newCardJson)
     responseMsg = newCardResponse[0]
     returnedCard = newCardResponse[1]
 
@@ -244,7 +245,7 @@ def updateCard(updateCardDetails: dict):
         
         #Get the {id, name}s of customFields, iterate through the list, and get the id of the matching name
         else:
-            customFields = apiCaller.getCustomFieldIds()
+            customFields = getCustomFieldIds()
             for i in range(len(customFields)):
                 if customFields[i].get('name') == nameCustomField:
                     idCustomField = customFields[i].get('id')
@@ -291,7 +292,7 @@ def updateCard(updateCardDetails: dict):
                 valueCustomField = {'text': valueCustomField }
 
             customFieldRequest.update(idCustomField=idCustomField, value=valueCustomField, idValue=idValue)
-            updateCardResponse = apiCaller.putUpdateCard(customFieldRequest, idCard)
+            updateCardResponse = putUpdateCard(customFieldRequest, idCard)
         else:
             print("Error: A Custom Field Value was specified without a Custom Field ID or Name")
 
@@ -299,18 +300,19 @@ def updateCard(updateCardDetails: dict):
     if jobExtensions is not None:
         for i in range(len(jobExtensions)):
             extensionCall = jobExtensions[i]
-            enrichedData = exec(extensionCall,{locals()})
+
+            enrichedData = eval(extensionCall)
             updateCardDetails.update(enrichedData)
             i += 1
+        
 
     #Some cleanup
     del updateCardDetails['request']
-    del updateCardDetails['jobExtensions']
     lastReturnedCard.clear()
     updateCardJson = updateCardDetails
 
     #Transmit the Update Card requeest
-    updateCardResponse = apiCaller.putUpdateCard(updateCardJson, idCard)
+    updateCardResponse = putUpdateCard(updateCardJson, idCard)
     responseMsg = updateCardResponse[0]
     returnedCard = updateCardResponse[1]
 
@@ -330,7 +332,7 @@ def createChecklist(newChecklistDetails: dict):
 
     newChecklistDetails.update(idCard=idCard)
     newChecklistJson = newChecklistDetails
-    newChecklistResponse = apiCaller.postNewChecklist(newChecklistJson)
+    newChecklistResponse = postNewChecklist(newChecklistJson)
     responseMsg = newChecklistResponse[0]
     returnedChecklist = newChecklistResponse[1]
 
@@ -352,7 +354,7 @@ def createCheckItem(newCheckItemDetails: dict):
     del newCheckItemDetails['request']
     
     newCheckItemJson = newCheckItemDetails
-    newCheckItemResponse = apiCaller.postNewCheckItem(newCheckItemJson, idChecklist)
+    newCheckItemResponse = postNewCheckItem(newCheckItemJson, idChecklist)
     responseMsg = newCheckItemResponse[0]
     returnedCheckItem = newCheckItemResponse[1]
 
@@ -407,7 +409,7 @@ def makeIterativeUpdateCard(listCardDetails: dict):
             idList = newList.get('id')
             listCardDetails.update(idList=idList)
     
-    listCardsInList = apiCaller.getCardsInList(idList)
+    listCardsInList = getCardsInList(idList)
 
     #Iterate through the list of cards in the List and make a list of Card IDs
     for i in range(len(listCardsInList)):

@@ -1,0 +1,10 @@
+---
+
+#Clear any Delivered packages from the tracker
+Update Card:
+  request:
+    idCard: 'list'              
+    nameList: 'Package Tracking'             
+  closed: true            
+  jobExtensions:
+  - 'packageTracking(idCard)'
