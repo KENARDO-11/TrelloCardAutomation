@@ -30,7 +30,7 @@ Extensions should return a valid body for the kind of API request the parent fun
 I want to go through all the Cards in a List, determine whether they have Plugin Data that corresponds to a package that has been delivered, and archive the Cards that have, without affecting the Cards that haven't.
 
 ### task.yml:
-```Python
+```yaml
 ---
 #Clear any Delivered packages from the tracker
 Update Card:
@@ -43,7 +43,7 @@ Update Card:
 ```
 
 ### apiExtensions.py
-```yaml
+```python
 ####
 def packageTracking(idCard: str)
     doSomething()
