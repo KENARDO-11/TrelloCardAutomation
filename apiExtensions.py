@@ -1,7 +1,7 @@
 #This script adds extended capabilities to apiScheduler in an interchangeable way.
 
 import yaml
-from time import sleep
+from time import sleep, tzname
 import json
 import requests
 import datetime
@@ -90,14 +90,13 @@ def staleCards(idCard: str, idList: str):
         i += 1
 
     datetimeToDoDate = isoparse(toDoDate)
-    datetimeNow = datetime.datetime.utcnow()
+    datetimeNow = datetime.datetime.now().astimezone(tz=datetime.timezone.utc)
 
     # timeInToDo = datetimeNow.date() - datetimeToDoDate.date()
-    timeInToDo = datetime.datetime(datetimeNow.time()) - datetime.datetime(datetimeToDoDate.time())
-    daysInToDo = timeInToDo.totalSeconds()
+    timeInToDo = datetimeNow - datetimeToDoDate
+    daysInToDo = timeInToDo.days
 
-    print(f"I am {daysInToDo} seconds old.")
-    if daysInToDo >= 3600:
+    if daysInToDo >= 10:
         enrichedCardDetails.update(idList=backburneridList)
 
     return enrichedCardDetails
