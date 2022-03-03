@@ -299,7 +299,7 @@ def updateCard(updateCardDetails: dict):
     if jobExtensions is not None:
         for i in range(len(jobExtensions)):
             extensionCall = jobExtensions[i]
-            enrichedData = exec(extensionCall)
+            enrichedData = exec(extensionCall,{locals()})
             updateCardDetails.update(enrichedData)
             i += 1
 
