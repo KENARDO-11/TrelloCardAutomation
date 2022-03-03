@@ -96,6 +96,7 @@ def staleCards(idCard: str, idList: str):
     timeInToDo = datetimeNow - datetimeToDoDate
     daysInToDo = timeInToDo.days
 
+    print(f'Card has been in To Do status for {daysInToDo} days')
     if daysInToDo >= 10:
         enrichedCardDetails.update(idList=backburneridList)
 
