@@ -1,0 +1,50 @@
+---
+#Reminder to do my exercises
+
+New Card:
+  request:                  
+     nameLabels:            
+     - 'Health'
+     nameList: 'To Do Today'
+  name: 'Physical Therapy Exercises'       
+  cover:    
+    color: 'green'          
+ 
+
+#New Checklist for Study Times
+New Checklist:
+  idCard: 'self'       
+  name: 'Exercises'  
+
+
+#New Checklist Item
+New CheckItem0:
+  request:        
+    idChecklist: 0
+  name: 'Core Contractions' 
+  pos: 0          
+  checked: False  
+
+#New Checklist Item
+New CheckItem1:
+  request:         
+    idChecklist: 0 
+  name: 'Pelvic Bridges'  
+  pos: 1           
+  checked: False   
+
+#New Checklist Item
+New CheckItem2:
+  request:         
+    idChecklist: 0 
+  name: 'Pelvic Twists'
+  pos: 2           
+  checked: False   
+
+#New Checklist Item
+New CheckItem3:
+  request:        
+    idChecklist: 0
+  name: 'Straight Leg Raises' 
+  pos: 3          
+  checked: False  

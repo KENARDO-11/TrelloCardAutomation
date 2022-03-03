@@ -1,0 +1,35 @@
+---
+
+#Reminder to Study Japanese
+
+New Card:
+  request:                  
+     nameLabels:            
+     - 'Course Studies'
+     - 'Japan Migration'
+     nameList: 'To Do Today'
+  name: 'Japanese Studies'       
+  cover:    
+    color: 'green'          
+
+#New Checklist for Study Times
+New Checklist:
+  idCard: 'self'       
+  name: 'Study Times'  
+
+
+#New Checklist Item
+New CheckItem0:
+  request:        
+    idChecklist: 0
+  name: 'Session 1' 
+  pos: 0          
+  checked: False  
+
+#New Checklist Item
+New CheckItem1:
+  request:         
+    idChecklist: 0 
+  name: 'Session 2'  
+  pos: 1           
+  checked: False   

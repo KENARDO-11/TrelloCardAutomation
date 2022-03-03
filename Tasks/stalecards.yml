@@ -1,0 +1,9 @@
+---
+#Move cards that have spent more than 10 days in To Do, to the backburner
+Update Card:
+  request:           
+    idCard: 'list'   
+    nameList: 'To Do'
+  idList: ~          
+  jobExtensions:
+  - 'staleCards(idCard, idList)'

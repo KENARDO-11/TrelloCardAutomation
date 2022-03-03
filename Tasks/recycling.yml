@@ -1,0 +1,11 @@
+---
+#Reminder to take out the recycling on Tuesday
+
+New Card:
+  request:                  
+     nameLabels:            
+     - 'Household Chores'
+     nameList: 'To Do Today'
+  name: 'Recycling'         
+  cover:    
+    color: 'blue'

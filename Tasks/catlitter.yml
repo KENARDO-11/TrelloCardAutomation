@@ -1,0 +1,12 @@
+---
+#Reminder to do the cat litter on Tuesdays
+
+New Card:
+  request:                  
+     nameLabels:            
+     - 'Household Chores'
+     nameList: 'To Do Today'
+  name: 'Cat Litter'
+  idList: ~      
+  cover:    
+    color: 'blue'
