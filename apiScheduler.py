@@ -29,12 +29,14 @@ listReturnedCheckItems = []
 
 #Fetch the list of scheduled Tasks and store it as a dict
 def fetchTaskList(filename: str):
+    print('Fetching the tasklist...')
     stream = open(filename, 'r')
     taskList.update(yaml.load(stream, yaml.Loader))
-    
+    print('Tasklist fetched successfully.')
+
 #Analyze the taskList to determine what tasks need to be performed today, in which order #IN PROGRESS
 def parseTaskList():
-    
+    print('Parsing the tasklist...')
     #Still need to add run day handling
     taskIndex = 0
     for key, value in taskList.items():
@@ -46,9 +48,9 @@ def parseTaskList():
 
 #Fetch the specified Task YAML file, read it, and call the appropriate functions in order #IN PROGRESS
 def readTask(filename: str):
-
     stream = open(filename, 'r')
     readTasks = yaml.load(stream, yaml.Loader)
+    print('Opened Task File successfully.')
 
     if readTasks is None:
         print("Nothing to do. Skipping.")
@@ -90,6 +92,7 @@ def readTask(filename: str):
             
 #Get the information on Lists
 def readLists():
+    print('Reading Lists...')
     listTrelloLists.clear()
     listTrelloLists.extend(getListIds())
     
@@ -102,6 +105,7 @@ def readLists():
 
 #get the information on Labels
 def readLabels():
+    print('Reading Labels...')
     listTrelloLabels.clear()
     listTrelloLabels.extend(getLabelIds())
 
@@ -114,7 +118,7 @@ def readLabels():
 
 #Get the {option}s for the "Epic" CustomField
 def getEpicOptions():
-
+    print('Getting a list of options for the Epic field...')
     #Make sure getCustomFields() has been run at least once
     listCustomFields = getCustomFields()
 
@@ -140,7 +144,7 @@ def getEpicOptions():
 
 #Build a "Create Card" request and feed it to apiCaller
 def createCard(newCardDetails: dict):
-
+    print('Building a new Card...')
     #Instantiate local variables and clear lastReturnedCard{}
     requestDetails = newCardDetails.get('request')
     idList = newCardDetails.get('idList')
@@ -206,7 +210,6 @@ def createCard(newCardDetails: dict):
             'cover': newCardCover
         }
         implicitUpdateCard = makeImplicitUpdateCard(returnedCard, newElements)
-        print('Performing an implicit update')
         updateCard(implicitUpdateCard)
 
     lastReturnedCard.update(returnedCard)
@@ -214,7 +217,7 @@ def createCard(newCardDetails: dict):
 
 #Build an "Update Card" rquest and feed it to apiCaller
 def updateCard(updateCardDetails: dict):
-    
+    print('Building an Update Card request...')
     #Instantiate local variables
     requestDetails = updateCardDetails.get('request')
     idCard = requestDetails.get('idCard') 
@@ -323,7 +326,7 @@ def updateCard(updateCardDetails: dict):
 
 #Build a "Create Checklist" request and feed it to apiCaller
 def createChecklist(newChecklistDetails: dict):
-
+    print('Building a new Checklist...')
     idCard = newChecklistDetails.get('idCard')
     lastReturnedChecklist.clear()
 
@@ -344,7 +347,7 @@ def createChecklist(newChecklistDetails: dict):
 
 #Build a "Create CheckItem" request and feed it to apiCaller
 def createCheckItem(newCheckItemDetails: dict):
-
+    print('Building a new Check Item...')
     checkItemRequest = newCheckItemDetails.get('request')
     idChecklist = checkItemRequest.get('idChecklist')
 
@@ -375,7 +378,7 @@ def updateCheckItem(updateCheckItemDetails: dict):
 
 #Create a new dict to feed updateCard() when the New Card task contains elements that Trello doesn't add on creation
 def makeImplicitUpdateCard(cardDetails: dict, newElements: dict):
-    
+    print('Performing an implicit update...')
     idCard = cardDetails.get('id')
     idCustomField = newElements.get('idCustomField')
     nameCustomField = newElements.get('nameCustomField')
@@ -396,6 +399,7 @@ def makeImplicitUpdateCard(cardDetails: dict, newElements: dict):
 
 #Use a list to do generate updateCard() calls for each card in the list
 def makeIterativeUpdateCard(listCardDetails: dict):
+    print('Starting an Iterative Update proces...')
     requestDetails = listCardDetails.get('request')
     idList = listCardDetails.get('idList')
     nameList = requestDetails.get('nameList')
@@ -412,7 +416,7 @@ def makeIterativeUpdateCard(listCardDetails: dict):
             listCardDetails.update(idList=idList)
     
     listCardsInList = getCardsInList(idList)
-
+    print(f"Iterating through {len(listCardsInList)} cards...")
     #Iterate through the list of cards in the List and make a list of Card IDs
     for i in range(len(listCardsInList)):
         tempIdCard = listCardsInList[i].get('id')
@@ -421,6 +425,7 @@ def makeIterativeUpdateCard(listCardDetails: dict):
     
     #Iterate through the list of Card IDs and call updateCard() for each one
     for i in range(len(listIdCards)):
+        print(f"Building request details for Card #{i+1}")
         tempRequest = requestDetails
         tempRequest.update(idCard=listIdCards[i], nameList=None)
         tempUpdateCard = listCardDetails
@@ -438,5 +443,5 @@ def main():
     readLabels()
     parseTaskList()
 
-if __name__ == 'main':
+if __name__ == '__main__':
     main()

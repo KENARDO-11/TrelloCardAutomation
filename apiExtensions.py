@@ -71,12 +71,14 @@ def staleCards(idCard: str, idList: str):
 
     actionResponse = getCardActions(idCard, listFilters)
     del listFilters[0]
+    print(listFilters)
 
     for i in range(len(actionResponse)):
         tempDict = actionResponse[i]
 
         if tempDict.get('type') in listFilters:
             toDoDate = tempDict.get('date')
+            break
         else:
             tempDictData = tempDict.get('data')
             if 'listAfter' in tempDictData:
@@ -84,15 +86,18 @@ def staleCards(idCard: str, idList: str):
                 tempIdList = tempListAfter.get('id')
                 if tempIdList == idList:
                     toDoDate = tempDict.get('date')
+                    break
         i += 1
 
     datetimeToDoDate = isoparse(toDoDate)
     datetimeNow = datetime.datetime.utcnow()
 
-    timeInToDo = datetimeNow.date() - datetimeToDoDate.date()
-    daysInToDo = timeInToDo.days
+    # timeInToDo = datetimeNow.date() - datetimeToDoDate.date()
+    timeInToDo = datetime.datetime(datetimeNow.time()) - datetime.datetime(datetimeToDoDate.time())
+    daysInToDo = timeInToDo.totalSeconds()
 
-    if daysInToDo >= 10:
+    print(f"I am {daysInToDo} seconds old.")
+    if daysInToDo >= 3600:
         enrichedCardDetails.update(idList=backburneridList)
 
     return enrichedCardDetails
