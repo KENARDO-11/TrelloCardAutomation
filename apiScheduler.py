@@ -422,9 +422,9 @@ def makeIterativeUpdateCard(listCardDetails: dict):
     #Iterate through the list of Card IDs and call updateCard() for each one
     for i in range(len(listIdCards)):
         tempRequest = requestDetails
-        tempRequest.update(idCard=listIdCards[i],idList=idList, nameList=None)
+        tempRequest.update(idCard=listIdCards[i], nameList=None)
         tempUpdateCard = listCardDetails
-        tempUpdateCard.update(request=tempRequest)
+        tempUpdateCard.update(request=tempRequest, idList=idList)
 
         updateCard(tempUpdateCard)
         i += 1
