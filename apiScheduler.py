@@ -431,7 +431,12 @@ def makeIterativeUpdateCard(listCardDetails: dict):
 
     return
 
-fetchTaskList(f"{sys.path[0]}{os.sep}tasklist.yml") 
-readLists()
-readLabels()
-parseTaskList()
+#Main function
+def main():
+    fetchTaskList(f"{sys.path[0]}{os.sep}tasklist.yml") 
+    readLists()
+    readLabels()
+    parseTaskList()
+
+if __name__ == 'main':
+    main()
