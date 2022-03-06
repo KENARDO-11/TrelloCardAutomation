@@ -376,6 +376,14 @@ def updateCheckItem(updateCheckItemDetails: dict):
     print("The API Caller does not currently have Update Checklist Item functionality.")
     pass
 
+#Normalize requests to use IDs instead of Names #TO DO
+def normalizeRequestDetails(requestDetails: dict):
+    #Get the nested if blocks from createCard(), updateCard(), createChecklist(), and createCheckItem()
+    #Refactor them to work in a standard way
+    #Use them to update requestDetails
+    #Replace them with calls to this function
+    return requestDetails
+
 #Create a new dict to feed updateCard() when the New Card task contains elements that Trello doesn't add on creation
 def makeImplicitUpdateCard(cardDetails: dict, newElements: dict):
     print('Performing an implicit update...')

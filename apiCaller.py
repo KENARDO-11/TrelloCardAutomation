@@ -189,13 +189,13 @@ def getCardActions(idCard: str, filter: list):
 def getPluginData(idCard: str):
     print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.utcnow()}")
 
-    #Force the plugin to update by changing the front of the card
+    #Force the plugin to update by changing the front of the card, then sleep for 2 seconds to make sure the pluginData has time to update
     forceUpdateJson = {'cover': {'color': 'green'}}
     forceUpdateJson.update(payloadAuthToken)
-
     putUpdateCard(forceUpdateJson, idCard)
     forceUpdateJson.update(cover='')
     putUpdateCard(forceUpdateJson, idCard)
+    sleep(2)
 
     #Generate and transmit a GET pluginData request
     requestBody = payloadAuthToken

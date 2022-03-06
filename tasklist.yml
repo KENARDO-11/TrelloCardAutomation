@@ -64,19 +64,19 @@ Task4:
     - saturday
   Last Run: never
 
-Task5:
-  Name: Cat Liter
-  File: catlitter.yml
-  Run Days:
-    - tuesday
-  Last Run: never
+# Task5:
+#   Name: Cat Liter
+#   File: catlitter.yml
+#   Run Days:
+#     - tuesday
+#   Last Run: never
 
-Task6:
-  Name: Take Out Recycling
-  File: recycling.yml
-  Run Days:
-    - tuesday
-  Last Run: never
+# Task6:
+#   Name: Take Out Recycling
+#   File: recycling.yml
+#   Run Days:
+#     - tuesday
+#   Last Run: never
 
 Task7:
   Name: Update Blocked Card

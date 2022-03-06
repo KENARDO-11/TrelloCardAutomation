@@ -126,9 +126,9 @@ Special Values:
   #                         #Used in conjunction with a New CheckItem block. The Job Scheduler will use the ID of the specified New CheckItem
   #
   Cover Colors:             #Cover Color reference
-   - personal: green        #Only use the Key OR the Value
-   - domestic: blue
-   - work: red
-   - school: black
-   - automotive: yellow
-   - noCover: ""            #Specify cover: "" instead of cover: color: ""
+    personal: green        #Only use the Key OR the Value
+    domestic: blue
+    work: red
+    school: black
+    automotive: yellow
+    noCover: ""            #Specify cover: "" instead of cover: color: ""
