@@ -10,11 +10,13 @@ import sys
 from dateutil.parser import isoparse
 from dotenv import load_dotenv
 from apiCaller import *
-from apiScheduler import readLists
+# from apiScheduler import readLists
 import apiScheduler
+
 #Globals can go here if needed:
-
-
+readLists = apiScheduler.readLists()
+dictLists = readLists[0]
+listLists = readLists[1]
 
 #Determine whether a Card represents a Delivered package and report back to the parent function
 def packageTracking(idCard: str):
@@ -63,8 +65,6 @@ def staleCards(idCard: str, idList: str):
     toDoDate = ''
 
     #Get the idList for Backburner
-    dictLists = apiScheduler.dictTrelloLists
-    listLists = apiScheduler.listTrelloLists
     backburnerIndex = dictLists.get('Backburner')
     backburneridList = listLists[backburnerIndex].get('id')
 

@@ -194,7 +194,8 @@ def updateCard(updateCardDetails: dict):
     
     # Normalize the request
     normalizedDetails = normalizeRequestDetails(updateCardDetails)
-    
+    if normalizedDetails is None:
+        return
     # Instantiate local variables
     requestDetails = normalizedDetails.get('request')
     idCard = requestDetails.get('idCard') 
