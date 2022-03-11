@@ -31,25 +31,47 @@ def fetchTaskList(filename: str):
     print('Fetching the tasklist...')
     stream = open(filename, 'r')
     taskList.update(yaml.load(stream, yaml.Loader))
-    print('Tasklist fetched successfully.')
+    print('Tasklist fetched successfully.\n')
 
 # Analyze the taskList to determine what tasks need to be performed today, in which order #IN PROGRESS
 def parseTaskList():
     print('Parsing the tasklist...')
-    # Still need to add run day handling
+    
+    # Get today's date for use in checking whether a task should be run today
+    weekdays = {
+        'monday': 0,
+        'tuesday': 1,
+        'wednesday': 2,
+        'thursday': 3,
+        'friday': 4,
+        'saturday': 5,
+        'sunday': 6
+    }
+    today = list(weekdays)[datetime.date.weekday(datetime.date.today())]
+    todayDate = datetime.date.today()
+    print(f"Today is {today}")
+    
     taskIndex = 0
     for key, value in taskList.items():
-        taskIndex += 1 
-        taskFile = f'{sys.path[0]}{os.sep}Tasks{os.sep}'
-        taskFile += value.get('File')
-        print(f"Starting Task {taskIndex}: {value.get('Name')}")
-        readTask(taskFile)
+        runDays = value.get('Run Days')
+        for i in range(len(runDays)):
+            if weekdays.get(runDays[i]) == today:
+                print(f"Task \'{value.get('Name')}\' needs to run today.")
+                taskIndex += 1 
+                taskFile = f'{sys.path[0]}{os.sep}Tasks{os.sep}'
+                taskFile += value.get('File')
+                print(f"Starting Task {taskIndex}: {value.get('Name')}")
+                readTask(taskFile)
+                taskList.update()
+                break
+            else:
+                i += 1
 
 # Fetch the specified Task YAML file, read it, and call the appropriate functions in order #IN PROGRESS
 def readTask(filename: str):
     stream = open(filename, 'r')
     readTasks = yaml.load(stream, yaml.Loader)
-    print('Opened Task File successfully.')
+    print('\nOpened Task File successfully.')
 
     if readTasks is None:
         print("Nothing to do. Skipping.")
@@ -91,7 +113,7 @@ def readTask(filename: str):
             
 # Get the information on Lists
 def readLists():
-    print('Reading Lists...')
+    print('\nReading Lists...')
     listTrelloLists.clear()
     listTrelloLists.extend(getListIds())
     
@@ -104,7 +126,7 @@ def readLists():
 
 # Get the information on Labels
 def readLabels():
-    print('Reading Labels...')
+    print('\nReading Labels...')
     listTrelloLabels.clear()
     listTrelloLabels.extend(getLabelIds())
 
@@ -117,7 +139,7 @@ def readLabels():
 
 # Get the {option}s for the "Epic" CustomField
 def getEpicOptions():
-    print('Getting a list of options for the Epic field...')
+    print('\nGetting a list of options for the Epic field...')
     # Make sure getCustomFields() has been run at least once
     listCustomFields = getCustomFields()
 
@@ -143,7 +165,7 @@ def getEpicOptions():
 
 # Build a "Create Card" request and feed it to apiCaller
 def createCard(newCardDetails: dict):
-    print('Building a new Card...')
+    print('\nBuilding a new Card...')
     
     # Normalize the request
     normalizedDetails = normalizeRequestDetails(newCardDetails)
@@ -163,9 +185,6 @@ def createCard(newCardDetails: dict):
     valueCustomField = requestDetails.get('valueCustomField')   
     newCardCover = normalizedDetails.get('cover')    
     del normalizedDetails['request']
-
-
-    
 
     # Transmit the Create Card request
     newCardJson = normalizedDetails
@@ -190,7 +209,7 @@ def createCard(newCardDetails: dict):
 
 # Build an "Update Card" rquest and feed it to apiCaller
 def updateCard(updateCardDetails: dict):
-    print('Building an Update Card request...')
+    print('\nBuilding an Update Card request...')
     
     # Normalize the request
     normalizedDetails = normalizeRequestDetails(updateCardDetails)
@@ -264,7 +283,7 @@ def updateCard(updateCardDetails: dict):
 
 # Build a "Create Checklist" request and feed it to apiCaller
 def createChecklist(newChecklistDetails: dict):
-    print('Building a new Checklist...')
+    print('\nBuilding a new Checklist...')
     # Normalize the request
     normalizedDetails = normalizeRequestDetails(newChecklistDetails)   
     idCard = normalizedDetails.get('idCard')
@@ -282,7 +301,7 @@ def createChecklist(newChecklistDetails: dict):
 
 # Build a "Create CheckItem" request and feed it to apiCaller
 def createCheckItem(newCheckItemDetails: dict):
-    print('Building a new Check Item...')
+    print('\nBuilding a new Check Item...')
     checkItemRequest = newCheckItemDetails.get('request')
     idChecklist = checkItemRequest.get('idChecklist')
 
@@ -401,8 +420,6 @@ def makeImplicitUpdateCard(cardDetails: dict, newElements: dict):
 # Use a list to do generate updateCard() calls for each card in the list
 def makeIterativeUpdateCard(listCardDetails: dict):
     print('Starting an Iterative Update proces...')
-    # #Normalize the request
-    # normalizedDetails = normalizeRequestDetails(listCardDetails)
 
     requestDetails = listCardDetails.get('request')
     idList = listCardDetails.get('idList')
