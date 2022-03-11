@@ -11,7 +11,7 @@ from dateutil.parser import isoparse
 from dotenv import load_dotenv
 from apiCaller import *
 from apiScheduler import readLists
-
+import apiScheduler
 #Globals can go here if needed:
 
 
@@ -63,9 +63,8 @@ def staleCards(idCard: str, idList: str):
     toDoDate = ''
 
     #Get the idList for Backburner
-    returnedList = readLists()
-    dictLists = returnedList[0]
-    listLists = returnedList[1]
+    dictLists = apiScheduler.dictTrelloLists
+    listLists = apiScheduler.listTrelloLists
     backburnerIndex = dictLists.get('Backburner')
     backburneridList = listLists[backburnerIndex].get('id')
 
