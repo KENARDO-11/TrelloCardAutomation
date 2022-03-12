@@ -52,13 +52,14 @@ def parseTaskList():
     ]
     todayDate = datetime.date.today()
     today = weekdays[datetime.date.weekday(todayDate)]
-    print(f"Today is {today}")
+    print(f"Today is {today}.")
     
     taskIndex = 0
     for key, value in taskList.items():
         runDays = value.get('Run Days')
+        
         if runDays.__contains__(today):
-            print(f"Task \'{value.get('Name')}\' needs to run today.")
+            print(f"\nTask \'{value.get('Name')}\' needs to run today.")
             taskIndex += 1 
             taskFile = f'{sys.path[0]}{os.sep}Tasks{os.sep}'
             taskFile += value.get('File')
@@ -73,7 +74,10 @@ def parseTaskList():
 
             print('Updating Task List with last-run date...')
             taskList.update(updateTask)
-            updateTasklist()    
+            updateTasklist()
+        
+        else:
+            print(f"\nTask \'{value.get('Name')}\' does not run on {today}.")
 
 # Fetch the specified Task YAML file, read it, and call the appropriate functions in order #IN PROGRESS
 def readTask(filename: str):
@@ -86,33 +90,49 @@ def readTask(filename: str):
         print("Nothing to do. Skipping.")
         return
 
-    #I like this logic for iterating through the Task file and pointing to request functions
-    #But it doesn't take into account the Card -> Checklist -> CheckItem dependency flow
-    #I don't know if I should try to account for that here so that tasks can be out of order 
-    #or build it into the functions that extend apiCaller.
     for key, value in readTasks.items():
-        if key.__contains__('New'):
-            if key.__contains__('Card'):
-                createCard(value)
-            elif key.__contains__('Checklist'):
-                createChecklist(value)
-            elif key.__contains__('CheckItem'):
-                createCheckItem(value)
-            else:
-                print(f"Something went wrong. {key} is  not a valid request type.")
-
-        elif key.__contains__('Update'):
-            if key.__contains__('Card'):
-                updateCard(value)
-            elif key.__contains__('Checklist'):
-                updateChecklist(value)
-            elif key.__contains__('CheckItem'):
-                updateCheckItem(value)
-            else:
-                print(f"Something went wrong. {key} is  not a valid request type.")
         
-        else:
-            print(f"Something went wrong. {key} is not a valid request type.")
+        # Error Handler tries each task up to 3 times, sleeping for sleepTime seconds if it fails and backing off each time
+        sleepTime = 3
+        for b in range(3):
+            try:
+                if key.__contains__('New'):
+                    if key.__contains__('Card'):
+                        createCard(value)
+                    elif key.__contains__('Checklist'):
+                        createChecklist(value)
+                    elif key.__contains__('CheckItem'):
+                        createCheckItem(value)
+                    else:
+                        print(f"Something went wrong. {key} is  not a valid request type.")
+
+                elif key.__contains__('Update'):
+                    if key.__contains__('Card'):
+                        updateCard(value)
+                    elif key.__contains__('Checklist'):
+                        updateChecklist(value)
+                    elif key.__contains__('CheckItem'):
+                        updateCheckItem(value)
+                    else:
+                        print(f"Something went wrong. {key} is  not a valid request type.")
+                
+                else:
+                    print(f"Something went wrong. {key} is not a valid request type.")
+                errored = None
+
+            except Exception as errored:
+                exceptMsg = str(errored).replace(API_KEY, "API Key Hidden-")
+                exceptMsg = exceptMsg.replace(API_TOKEN, "API Token Hidden-")
+                pass
+
+            try: 
+                errored
+                break
+            except NameError:
+                print(f"{exceptMsg}\n Sleeping for {sleepTime} seconds before trying again...")
+                sleep(sleepTime)
+                sleepTime *= 2
+            b += 1
 
     # Clear the lists of returned items at the end of each task, before the next task starts.
     listReturnedChecklists.clear()

@@ -1,16 +1,14 @@
 #This script adds extended capabilities to apiScheduler in an interchangeable way.
 
 import yaml
-from time import sleep, tzname
+from time import sleep
 import json
-import requests
 import datetime
 import os
 import sys
 from dateutil.parser import isoparse
 from dotenv import load_dotenv
 from apiCaller import *
-# from apiScheduler import readLists
 import apiScheduler
 
 #Globals can go here if needed:
@@ -70,7 +68,6 @@ def staleCards(idCard: str, idList: str):
 
     actionResponse = getCardActions(idCard, listFilters)
     del listFilters[0]
-    print(listFilters)
 
     for i in range(len(actionResponse)):
         tempDict = actionResponse[i]
