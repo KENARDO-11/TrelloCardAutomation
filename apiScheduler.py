@@ -1,17 +1,14 @@
 # This function determines what API calls should be run on a given day, then coordinates the requests
-
 import yaml
 from time import sleep
-import json
-import requests
 import datetime
 import os
 import sys
-from dotenv import load_dotenv
 from apiCaller import *
 from apiExtensions import *
 
 # Some global lists and dicts
+tasklistFilename = f"{sys.path[0]}{os.sep}tasklist.yml"
 taskList = {}
 dictTrelloLists = {}
 dictTrelloLabels = {}
@@ -26,10 +23,16 @@ lastReturnedChecklist = {}
 listReturnedChecklists = []
 listReturnedCheckItems = []
 
+# Extend YAML Dumper to drop aliases
+class NoAliasDumper(yaml.SafeDumper):
+    def ignore_aliases(self, data):
+        return True
+
 # Fetch the list of scheduled Tasks and store it as a dict
 def fetchTaskList(filename: str):
     print('Fetching the tasklist...')
-    stream = open(filename, 'r')
+    with open(filename) as f:
+        stream = f.read()
     taskList.update(yaml.load(stream, yaml.Loader))
     print('Tasklist fetched successfully.\n')
 
@@ -38,46 +41,50 @@ def parseTaskList():
     print('Parsing the tasklist...')
     
     # Get today's date for use in checking whether a task should be run today
-    weekdays = {
-        'monday': 0,
-        'tuesday': 1,
-        'wednesday': 2,
-        'thursday': 3,
-        'friday': 4,
-        'saturday': 5,
-        'sunday': 6
-    }
-    today = list(weekdays)[datetime.date.weekday(datetime.date.today())]
+    weekdays = [
+        'monday',
+        'tuesday',
+        'wednesday',
+        'thursday',
+        'friday',
+        'saturday',
+        'sunday'
+    ]
     todayDate = datetime.date.today()
+    today = weekdays[datetime.date.weekday(todayDate)]
     print(f"Today is {today}")
     
     taskIndex = 0
     for key, value in taskList.items():
         runDays = value.get('Run Days')
-        for i in range(len(runDays)):
-            if weekdays.get(runDays[i]) == today:
-                print(f"Task \'{value.get('Name')}\' needs to run today.")
-                taskIndex += 1 
-                taskFile = f'{sys.path[0]}{os.sep}Tasks{os.sep}'
-                taskFile += value.get('File')
-                print(f"Starting Task {taskIndex}: {value.get('Name')}")
-                readTask(taskFile)
-                taskList.update()
-                break
-            else:
-                i += 1
+        if runDays.__contains__(today):
+            print(f"Task \'{value.get('Name')}\' needs to run today.")
+            taskIndex += 1 
+            taskFile = f'{sys.path[0]}{os.sep}Tasks{os.sep}'
+            taskFile += value.get('File')
+            print(f"Starting Task {taskIndex}: {value.get('Name')}")
+            readTask(taskFile)
+
+            updateTask = {key: value}
+            updateValue = value
+            lastRun = {'Last Run': todayDate.isoformat()}
+            updateValue.update(lastRun)
+            # updateTask.update(key=updateValue)
+
+            print('Updating Task List with last-run date...')
+            taskList.update(updateTask)
+            updateTasklist()    
 
 # Fetch the specified Task YAML file, read it, and call the appropriate functions in order #IN PROGRESS
 def readTask(filename: str):
-    stream = open(filename, 'r')
+    with open(filename) as f:
+        stream = f.read()
     readTasks = yaml.load(stream, yaml.Loader)
     print('\nOpened Task File successfully.')
 
     if readTasks is None:
         print("Nothing to do. Skipping.")
         return
-
-    # numTasks = len(readTasks)
 
     #I like this logic for iterating through the Task file and pointing to request functions
     #But it doesn't take into account the Card -> Checklist -> CheckItem dependency flow
@@ -110,7 +117,13 @@ def readTask(filename: str):
     # Clear the lists of returned items at the end of each task, before the next task starts.
     listReturnedChecklists.clear()
     listReturnedCheckItems.clear()
-            
+
+# Update tasklist.yml whenever a task completes
+def updateTasklist():
+    stream = open(tasklistFilename, mode='w+')
+    yaml.dump(data=taskList, stream=stream, Dumper=NoAliasDumper, explicit_start=True)
+    return
+
 # Get the information on Lists
 def readLists():
     print('\nReading Lists...')
@@ -449,7 +462,7 @@ def makeIterativeUpdateCard(listCardDetails: dict):
 
 # Main function
 def main():
-    fetchTaskList(f"{sys.path[0]}{os.sep}tasklist.yml") 
+    fetchTaskList(tasklistFilename) 
     readLists()
     readLabels()
     parseTaskList()

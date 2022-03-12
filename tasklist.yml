@@ -82,13 +82,7 @@ Task7:
   Name: Update Blocked Card
   File: updateblocked.yml
   Run Days:
-    - sunday
-    - monday
-    - tuesday
-    - wednesday
     - thursday
-    - friday
-    - saturday
   Last Run: never
 
 Task8:
