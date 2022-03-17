@@ -22,7 +22,7 @@ New CheckItem0:
   request:        
     idChecklist: 0
   name: 'Morning' 
-  pos: 0          
+  pos: 1          
   checked: False  
 
 #New Checklist Item
@@ -30,7 +30,7 @@ New CheckItem1:
   request:         
     idChecklist: 0 
   name: 'Mid-day'  
-  pos: 1           
+  pos: 2           
   checked: False   
 
 #New Checklist Item
@@ -38,7 +38,7 @@ New CheckItem2:
   request:         
     idChecklist: 0 
   name: 'Afternoon'
-  pos: 2           
+  pos: 3           
   checked: False   
 
 #New Checklist Item
@@ -46,5 +46,5 @@ New CheckItem3:
   request:        
     idChecklist: 0
   name: 'Evening' 
-  pos: 3          
+  pos: 4          
   checked: False  

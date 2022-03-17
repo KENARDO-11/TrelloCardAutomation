@@ -11,12 +11,12 @@ from dotenv import load_dotenv
 from apiCaller import *
 import apiScheduler
 
-#Globals can go here if needed:
+# Globals can go here if needed:
 readLists = apiScheduler.readLists()
 dictLists = readLists[0]
 listLists = readLists[1]
 
-#Determine whether a Card represents a Delivered package and report back to the parent function
+# Determine whether a Card represents a Delivered package and report back to the parent function
 def packageTracking(idCard: str):
     print(f"Starting {sys._getframe().f_code.co_name} for Card {idCard}")
     
@@ -40,7 +40,7 @@ def packageTracking(idCard: str):
 
     return enrichedCardDetails
 
-#Determine whether a Card has been in the 'To Do' list longer than 10 days and report back to the parent function
+# Determine whether a Card has been in the 'To Do' list longer than 10 days and report back to the parent function
 def staleCards(idCard: str, idList: str):
     print(f"Starting {sys._getframe().f_code.co_name} for Card {idCard}")
 
