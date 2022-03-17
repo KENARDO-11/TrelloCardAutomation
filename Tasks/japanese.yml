@@ -23,7 +23,7 @@ New CheckItem0:
   request:        
     idChecklist: 0
   name: 'Session 1' 
-  pos: 0          
+  pos: 1          
   checked: False  
 
 #New Checklist Item
@@ -31,5 +31,5 @@ New CheckItem1:
   request:         
     idChecklist: 0 
   name: 'Session 2'  
-  pos: 1           
+  pos: 2           
   checked: False   

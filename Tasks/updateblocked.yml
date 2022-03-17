@@ -1,0 +1,13 @@
+---
+# Create a new card in To Do Today to follow up on blocked cards
+New Card:
+  request:                  
+     nameLabels:            
+     - "Software"
+     nameList: "To Do Today"
+     nameCustomField: "Epic"
+     valueCustomField: "Dashboard and Automation"
+  name: "Update Blocked Cards"
+  idList: ~       
+  cover:    
+    color: "green"
