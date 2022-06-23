@@ -1,7 +1,7 @@
 ---
 Task0:
   File: feedscirocco.yml
-  Last Run: '2022-06-22'
+  Last Run: '2022-06-23'
   Name: Feed Scirocco
   Run Days:
   - sunday
@@ -13,7 +13,7 @@ Task0:
   - saturday
 Task1:
   File: wgustudies.yml
-  Last Run: '2022-06-22'
+  Last Run: '2022-06-23'
   Name: WGU Studies
   Run Days:
   - sunday
@@ -24,7 +24,7 @@ Task1:
   - friday
 Task2:
   File: japanese.yml
-  Last Run: '2022-06-22'
+  Last Run: '2022-06-23'
   Name: Japanese Studies
   Run Days:
   - sunday
@@ -35,7 +35,7 @@ Task2:
   - friday
 Task3:
   File: ptexercise.yml
-  Last Run: '2022-06-22'
+  Last Run: '2022-06-23'
   Name: Physical Therapy Exercises
   Run Days:
   - sunday
@@ -47,7 +47,7 @@ Task3:
   - saturday
 Task4:
   File: stalecards.yml
-  Last Run: '2022-06-22'
+  Last Run: '2022-06-23'
   Name: Move Stale Cards
   Run Days:
   - sunday
@@ -71,13 +71,13 @@ Task6:
   - tuesday
 Task7:
   File: updateblocked.yml
-  Last Run: '2022-06-16'
+  Last Run: '2022-06-23'
   Name: Update Blocked Card
   Run Days:
   - thursday
 Task8:
   File: packagetracking.yml
-  Last Run: '2022-06-22'
+  Last Run: '2022-06-23'
   Name: Package Tracking
   Run Days:
   - sunday
