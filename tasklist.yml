@@ -34,18 +34,6 @@ Task2:
   - thursday
   - friday
 Task3:
-  File: ptexercise.yml
-  Last Run: '2022-07-17'
-  Name: Physical Therapy Exercises
-  Run Days:
-  - sunday
-  - monday
-  - tuesday
-  - wednesday
-  - thursday
-  - friday
-  - saturday
-Task4:
   File: stalecards.yml
   Last Run: '2022-07-17'
   Name: Move Stale Cards
@@ -57,25 +45,25 @@ Task4:
   - thursday
   - friday
   - saturday
-Task5:
+Task4:
   File: catlitter.yml
   Last Run: '2022-07-12'
   Name: Cat Liter
   Run Days:
   - tuesday
-Task6:
+Task5:
   File: recycling.yml
   Last Run: '2022-07-12'
   Name: Take Out Recycling
   Run Days:
   - tuesday
-Task7:
+Task6:
   File: updateblocked.yml
   Last Run: '2022-07-14'
   Name: Update Blocked Card
   Run Days:
   - thursday
-Task8:
+Task7:
   File: packagetracking.yml
   Last Run: '2022-07-17'
   Name: Package Tracking
