@@ -1,7 +1,7 @@
 ---
 Task0:
   File: feedscirocco.yml
-  Last Run: '2022-07-22'
+  Last Run: '2022-07-23'
   Name: Feed Scirocco
   Run Days:
   - sunday
@@ -35,7 +35,7 @@ Task2:
   - friday
 Task3:
   File: stalecards.yml
-  Last Run: '2022-07-22'
+  Last Run: '2022-07-23'
   Name: Move Stale Cards
   Run Days:
   - sunday
@@ -65,7 +65,7 @@ Task6:
   - thursday
 Task7:
   File: packagetracking.yml
-  Last Run: '2022-07-22'
+  Last Run: '2022-07-23'
   Name: Package Tracking
   Run Days:
   - sunday
