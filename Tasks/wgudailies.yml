@@ -1,0 +1,11 @@
+---
+#Reminder to set study goals
+
+New Card:
+  request:                  
+     nameLabels:            
+     - 'Course Studies'
+     nameList: 'To Do Today'
+  name: 'WGU Daily Study Goals'       
+  cover:    
+    color: 'black'          
