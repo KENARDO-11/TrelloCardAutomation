@@ -68,10 +68,23 @@ Task7:
   Last Run: '2022-09-05'
   Name: Package Tracking
   Run Days:
-  - sunday
-  - monday
-  - tuesday
-  - wednesday
-  - thursday
-  - friday
-  - saturday
+    - sunday
+    - monday
+    - tuesday
+    - wednesday
+    - thursday
+    - friday
+    - saturday
+  
+ Task9:
+  Name: Set Daily Study Goals
+  File: wgudailies.yml
+  Run Days:
+     - sunday
+    - monday
+    - tuesday
+    - wednesday
+    - thursday
+    - friday
+    - saturday
+  Last Run: never
