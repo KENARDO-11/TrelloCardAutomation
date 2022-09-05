@@ -97,3 +97,16 @@ Task8:
     - friday
     - saturday
   Last Run: never
+  
+ Task9:
+  Name: Set Daily Study Goals
+  File: wgudailies.yml
+  Run Days:
+     - sunday
+    - monday
+    - tuesday
+    - wednesday
+    - thursday
+    - friday
+    - saturday
+  Last Run: never
