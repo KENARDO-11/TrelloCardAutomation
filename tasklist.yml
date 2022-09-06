@@ -76,11 +76,11 @@ Task7:
     - friday
     - saturday
   
- Task9:
+Task9:
   Name: Set Daily Study Goals
   File: wgudailies.yml
   Run Days:
-     - sunday
+    - sunday
     - monday
     - tuesday
     - wednesday
