@@ -1,7 +1,7 @@
 ---
 Task0:
   File: feedscirocco.yml
-  Last Run: '2022-09-08'
+  Last Run: '2022-09-09'
   Name: Feed Scirocco
   Run Days:
   - sunday
@@ -13,7 +13,7 @@ Task0:
   - saturday
 Task1:
   File: wgustudies.yml
-  Last Run: '2022-09-08'
+  Last Run: '2022-09-09'
   Name: WGU Studies
   Run Days:
   - sunday
@@ -24,7 +24,7 @@ Task1:
   - friday
 Task2:
   File: japanese.yml
-  Last Run: '2022-09-08'
+  Last Run: '2022-09-09'
   Name: Japanese Studies
   Run Days:
   - sunday
@@ -35,7 +35,7 @@ Task2:
   - friday
 Task3:
   File: stalecards.yml
-  Last Run: '2022-09-08'
+  Last Run: '2022-09-09'
   Name: Move Stale Cards
   Run Days:
   - sunday
@@ -65,7 +65,7 @@ Task6:
   - thursday
 Task7:
   File: packagetracking.yml
-  Last Run: '2022-09-08'
+  Last Run: '2022-09-09'
   Name: Package Tracking
   Run Days:
   - sunday
@@ -77,7 +77,7 @@ Task7:
   - saturday
 Task9:
   File: wgudailies.yml
-  Last Run: '2022-09-08'
+  Last Run: '2022-09-09'
   Name: Set Daily Study Goals
   Run Days:
   - sunday
