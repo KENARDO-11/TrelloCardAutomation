@@ -12,17 +12,6 @@ Task0:
   - friday
   - saturday
 Task1:
-  File: wgustudies.yml
-  Last Run: '2022-10-30'
-  Name: WGU Studies
-  Run Days:
-  - sunday
-  - monday
-  - tuesday
-  - wednesday
-  - thursday
-  - friday
-Task2:
   File: japanese.yml
   Last Run: '2022-10-30'
   Name: Japanese Studies
@@ -33,7 +22,7 @@ Task2:
   - wednesday
   - thursday
   - friday
-Task3:
+Task2:
   File: stalecards.yml
   Last Run: '2022-10-30'
   Name: Move Stale Cards
@@ -45,40 +34,28 @@ Task3:
   - thursday
   - friday
   - saturday
-Task4:
+Task3:
   File: catlitter.yml
   Last Run: '2022-10-25'
   Name: Cat Liter
   Run Days:
   - tuesday
-Task5:
+Task4:
   File: recycling.yml
   Last Run: '2022-10-25'
   Name: Take Out Recycling
   Run Days:
   - tuesday
-Task6:
+Task5:
   File: updateblocked.yml
   Last Run: '2022-10-27'
   Name: Update Blocked Card
   Run Days:
   - thursday
-Task7:
+Task6:
   File: packagetracking.yml
   Last Run: '2022-10-30'
   Name: Package Tracking
-  Run Days:
-  - sunday
-  - monday
-  - tuesday
-  - wednesday
-  - thursday
-  - friday
-  - saturday
-Task9:
-  File: wgudailies.yml
-  Last Run: '2022-10-30'
-  Name: Set Daily Study Goals
   Run Days:
   - sunday
   - monday
