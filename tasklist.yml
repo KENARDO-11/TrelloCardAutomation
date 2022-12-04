@@ -1,7 +1,7 @@
 ---
 Task0:
   File: feedscirocco.yml
-  Last Run: '2022-09-05'
+  Last Run: '2022-12-04'
   Name: Feed Scirocco
   Run Days:
   - sunday
@@ -12,19 +12,8 @@ Task0:
   - friday
   - saturday
 Task1:
-  File: wgustudies.yml
-  Last Run: '2022-09-05'
-  Name: WGU Studies
-  Run Days:
-  - sunday
-  - monday
-  - tuesday
-  - wednesday
-  - thursday
-  - friday
-Task2:
   File: japanese.yml
-  Last Run: '2022-09-05'
+  Last Run: '2022-12-04'
   Name: Japanese Studies
   Run Days:
   - sunday
@@ -33,9 +22,9 @@ Task2:
   - wednesday
   - thursday
   - friday
-Task3:
+Task2:
   File: stalecards.yml
-  Last Run: '2022-09-05'
+  Last Run: '2022-12-04'
   Name: Move Stale Cards
   Run Days:
   - sunday
@@ -45,46 +34,33 @@ Task3:
   - thursday
   - friday
   - saturday
-Task4:
+Task3:
   File: catlitter.yml
-  Last Run: '2022-08-30'
+  Last Run: '2022-11-29'
   Name: Cat Liter
   Run Days:
   - tuesday
-Task5:
+Task4:
   File: recycling.yml
-  Last Run: '2022-08-30'
+  Last Run: '2022-11-29'
   Name: Take Out Recycling
   Run Days:
   - tuesday
-Task6:
+Task5:
   File: updateblocked.yml
-  Last Run: '2022-09-01'
+  Last Run: '2022-12-01'
   Name: Update Blocked Card
   Run Days:
   - thursday
-Task7:
+Task6:
   File: packagetracking.yml
-  Last Run: '2022-09-05'
+  Last Run: '2022-12-04'
   Name: Package Tracking
   Run Days:
-    - sunday
-    - monday
-    - tuesday
-    - wednesday
-    - thursday
-    - friday
-    - saturday
-  
-Task9:
-  Name: Set Daily Study Goals
-  File: wgudailies.yml
-  Run Days:
-    - sunday
-    - monday
-    - tuesday
-    - wednesday
-    - thursday
-    - friday
-    - saturday
-  Last Run: never
+  - sunday
+  - monday
+  - tuesday
+  - wednesday
+  - thursday
+  - friday
+  - saturday
