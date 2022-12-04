@@ -5,7 +5,6 @@
 New Card:
   request:                  
      nameLabels:            
-     - 'Course Studies'
      - 'Japan Migration'
      nameList: 'To Do Today'
   name: 'Japanese Studies'       
