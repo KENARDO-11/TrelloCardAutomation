@@ -5,9 +5,10 @@
 New Card:
   request:                  
      nameLabels:            
-     - 'Course Studies'
      - 'Japan Migration'
      nameList: 'To Do Today'
+     nameCustomField: 'Epic'
+     valueCustomField: 'Daily Studies'
   name: 'Japanese Studies'       
   cover:    
     color: 'green'          
