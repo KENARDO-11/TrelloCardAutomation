@@ -8,8 +8,7 @@ New Card:
      nameList: 'To Do Today'    
   name: "Laundry"               
   desc: "Do the laundry"        
-  closed: False            
-  idList: ~                
+  closed: False                         
   cover:    
     color: "blue"               
 
@@ -17,38 +16,74 @@ New Card:
 New Checklist0:
   idCard: "self" 
   name: "Colors" 
-  pos: 0         
+  pos: "top"         
 
 New CheckItem0:
   request:        
     idChecklist: 0
   name: "Wash"    
-  pos: 0          
+  pos: "top"          
   checked: False  
 
 New CheckItem1:
   request:        
     idChecklist: 0
-  name: "Dry"    
-  pos: 1   
+  name: "Dry"     
   checked: False  
 
 New CheckItem2:
   request:        
     idChecklist: 0
   name: "Stow"    
-  pos: 1          
+  pos: "bottom"          
   checked: False  
 
 #Extra Checklists
 New Checklist1:
   idCard: "self"
   name: "Whites"
-  pos: 1
-  idChecklistSource: ~
+
+New CheckItem3:
+  request:        
+    idChecklist: 1
+  name: "Wash"    
+  pos: "top"          
+  checked: False  
+
+New CheckItem4:
+  request:        
+    idChecklist: 1
+  name: "Dry"    
+  checked: False  
+
+New CheckItem5:
+  request:        
+    idChecklist: 1
+  name: "Stow"    
+  pos: "bottom"         
+  checked: False 
 
 New Checklist2:
   idCard: "self"
   name: "Sheets"
-  pos: 2
-  idChecklistSource: ~
+  pos: "bottom"
+
+New CheckItem6:
+  request:        
+    idChecklist: 2
+  name: "Wash"    
+  pos: "top"          
+  checked: False  
+
+New CheckItem7:
+  request:        
+    idChecklist: 2
+  name: "Dry"    
+  checked: False  
+
+New CheckItem8:
+  request:        
+    idChecklist: 2
+  name: "Stow"    
+  pos: "bottom"          
+  checked: False 
