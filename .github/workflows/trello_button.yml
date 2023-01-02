@@ -4,7 +4,12 @@
 name: Trello Button
 
 on:
-  workflow_dispatch
+  workflow_dispatch:
+    inputs:
+      taskfile:
+        description: 'Task File to run'
+        required: true
+
   
 jobs:
   build:
@@ -15,6 +20,7 @@ jobs:
       TRELLO_KEY: ${{ secrets.TRELLO_KEY }}
       TRELLO_TOKEN: ${{ secrets.TRELLO_TOKEN }}
       TRELLO_BOARD: ${{ secrets.TRELLO_BOARD }}
+      TASK: ${{ inputs.taskfile }}
     
     steps:
     - name: Checkout Repo
@@ -32,6 +38,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     
-    - name: Run apiScheduler.py
+    - name: Run trelloButton
       run: |
-        python apiScheduler.py
+        python trelloButton.py
