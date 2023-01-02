@@ -1,0 +1,54 @@
+---
+#Create a card for laundry
+
+New Card:
+  request:                  
+     nameLabels:            
+     - 'Household Chores'
+     nameList: 'To Do Today'    
+  name: "Laundry"               
+  desc: "Do the laundry"        
+  closed: False            
+  idList: ~                
+  cover:    
+    color: "blue"               
+
+#Base Checklist
+New Checklist0:
+  idCard: "self" 
+  name: "Colors" 
+  pos: 0         
+
+New CheckItem0:
+  request:        
+    idChecklist: 0
+  name: "Wash"    
+  pos: 0          
+  checked: False  
+
+New CheckItem1:
+  request:        
+    idChecklist: 0
+  name: "Dry"    
+  pos: 1   
+  checked: False  
+
+New CheckItem2:
+  request:        
+    idChecklist: 0
+  name: "Stow"    
+  pos: 1          
+  checked: False  
+
+#Extra Checklists
+New Checklist1:
+  idCard: "self"
+  name: "Whites"
+  pos: 1
+  idChecklistSource: ~
+
+New Checklist2:
+  idCard: "self"
+  name: "Sheets"
+  pos: 2
+  idChecklistSource: ~
