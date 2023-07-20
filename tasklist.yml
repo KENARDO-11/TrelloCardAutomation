@@ -1,7 +1,7 @@
 ---
 Task0:
   File: feedscirocco.yml
-  Last Run: '2023-07-19'
+  Last Run: '2023-07-20'
   Name: Feed Scirocco
   Run Days:
   - sunday
@@ -13,7 +13,7 @@ Task0:
   - saturday
 Task1:
   File: japanese.yml
-  Last Run: '2023-07-19'
+  Last Run: '2023-07-20'
   Name: Japanese Studies
   Run Days:
   - sunday
@@ -24,7 +24,7 @@ Task1:
   - friday
 Task2:
   File: stalecards.yml
-  Last Run: '2023-07-19'
+  Last Run: '2023-07-20'
   Name: Move Stale Cards
   Run Days:
   - sunday
@@ -48,13 +48,13 @@ Task4:
   - tuesday
 Task5:
   File: updateblocked.yml
-  Last Run: '2023-07-13'
+  Last Run: '2023-07-20'
   Name: Update Blocked Card
   Run Days:
   - thursday
 Task6:
   File: packagetracking.yml
-  Last Run: '2023-07-19'
+  Last Run: '2023-07-20'
   Name: Package Tracking
   Run Days:
   - sunday
