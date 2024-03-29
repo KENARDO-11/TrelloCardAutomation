@@ -26,207 +26,207 @@ else:
     breakpoint()
 
 #API token authorization payload for global use
-payloadAuthToken = {'key': API_KEY, 'token': API_TOKEN}
+payload_auth_token = {'key': API_KEY, 'token': API_TOKEN}
 
 #Trello API Endpoint
 endpoint = "https://api.trello.com/1/"
 
 #lists for global use
-listListIds = []
-listCards = []
-listCardIds = []
-listLabelIds = []
-listCustomFields = []
-listCustomFieldIds = []
+list_list_ids = []
+list_cards = []
+list_card_ids = []
+list_label_ids = []
+list_custom_fields = []
+list_custom_field_ids = []
 
 #Get the Board's List IDs
-def getListIds():
+def get_list_ids():
     print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.utcnow()}")
 
     #Formulate and send an HTTP request. Store the response and parse it as json.
-    requestBody = payloadAuthToken
-    requestUrl = f"{endpoint}boards/{BOARD_ID}/lists"
-    response = requests.get(requestUrl, params=requestBody)
+    request_body = payload_auth_token
+    request_url = f"{endpoint}boards/{BOARD_ID}/lists"
+    response = requests.get(request_url, params=request_body)
     response.raise_for_status()
-    jsonResponse = response.json()
+    json_response = response.json()
     
-    #Extract {"id": "<class 'str'>", "name": "<class 'str'>"} from each object in jsonResponse and populate listListIds[]
-    for i in range(len(jsonResponse)):
-        tempDict = {'id': jsonResponse[i].get('id'), 'name': jsonResponse[i].get('name')}
-        listListIds.append(tempDict)
+    #Extract {"id": "<class 'str'>", "name": "<class 'str'>"} from each object in json_response and populate list_list_ids[]
+    for i in range(len(json_response)):
+        temp_dict = {'id': json_response[i].get('id'), 'name': json_response[i].get('name')}
+        list_list_ids.append(temp_dict)
         i += 1
-    print(f"Found {len(listListIds)} Lists and extracted their Names and IDs.")
+    print(f"Found {len(list_list_ids)} Lists and extracted their Names and IDs.")
 
     print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.utcnow()}\n")
-    return listListIds
+    return list_list_ids
 
 #Get the Board's Cards
-def getCards():
+def get_cards():
     print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.utcnow()}")
     
     #Formulate and send an HTTP request. Store the response and parse it as json.
-    requestBody = payloadAuthToken
-    requestUrl = f"{endpoint}boards/{BOARD_ID}/cards"
-    response = requests.get(requestUrl, params=requestBody)
+    request_body = payload_auth_token
+    request_url = f"{endpoint}boards/{BOARD_ID}/cards"
+    response = requests.get(request_url, params=request_body)
     response.raise_for_status()
-    jsonResponse = response.json()
+    json_response = response.json()
 
-    #Populate listCards[] with the card info from jsonResponse
-    listCards.clear()
-    listCards.extend(jsonResponse)
+    #Populate list_cards[] with the card info from json_response
+    list_cards.clear()
+    list_cards.extend(json_response)
 
-    print(f"Found {len(listCards)} Cards.")
+    print(f"Found {len(list_cards)} Cards.")
 
 
     print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.utcnow()}\n")
-    return listCards
+    return list_cards
 
-#Get Card IDs from listCards[]
-def getCardIds():
+#Get Card IDs from list_cards[]
+def get_card_ids():
     print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.utcnow()}")
 
-    #Iterate through listCards[] and populate listCardIds[] with the 'id' values
-    listCardIds.clear()
-    for i in range(len(listCards)):
-        listCardIds.append(listCards[i].get('id'))
+    #Iterate through list_cards[] and populate list_card_ids[] with the 'id' values
+    list_card_ids.clear()
+    for i in range(len(list_cards)):
+        list_card_ids.append(list_cards[i].get('id'))
         i += 1
 
     print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.utcnow()}\n")
-    return listCardIds
+    return list_card_ids
 
 #Get the Cards in a List
-def getCardsInList(idList: str):
+def get_cards_in_list(id_list: str):
     print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.utcnow()}")
     
     #Formulate and send an HTTP request. Store the response and parse it as json.
-    requestBody = payloadAuthToken
-    requestUrl = f"{endpoint}lists/{idList}/cards"
-    response = requests.get(requestUrl, params=requestBody)
+    request_body = payload_auth_token
+    request_url = f"{endpoint}lists/{id_list}/cards"
+    response = requests.get(request_url, params=request_body)
     response.raise_for_status()
-    jsonResponse = response.json()
+    json_response = response.json()
 
-    #Populate listCardsInList[] with the card info from jsonResponse
-    listCardsInList = jsonResponse
+    #Populate list_cards_in_list[] with the card info from json_response
+    list_cards_in_list = json_response
 
-    print(f"Found {len(listCardsInList)} Cards.")
+    print(f"Found {len(list_cards_in_list)} Cards.")
 
 
     print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.utcnow()}\n")
-    return listCardsInList
+    return list_cards_in_list
 
 #Get the Board's Label IDs
-def getLabelIds():
+def get_label_ids():
     print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.utcnow()}")
     
     #Formulate and send an HTTP request. Store the response and parse it as json.
-    requestBody = payloadAuthToken
-    requestUrl = f"{endpoint}boards/{BOARD_ID}/labels"
-    response = requests.get(requestUrl, params=requestBody)
+    request_body = payload_auth_token
+    request_url = f"{endpoint}boards/{BOARD_ID}/labels"
+    response = requests.get(request_url, params=request_body)
     response.raise_for_status()
-    jsonResponse = response.json()
+    json_response = response.json()
 
-    #Extract {"id": "<class 'str'>", "name": "<class 'str'>"} from each object in jsonResponse and populate listLabelIds[]
-    for i in range(len(jsonResponse)):
-        tempDict = {'id': jsonResponse[i].get('id'), 'name': jsonResponse[i].get('name')}
-        listLabelIds.append(tempDict)
+    #Extract {"id": "<class 'str'>", "name": "<class 'str'>"} from each object in json_response and populate list_label_ids[]
+    for i in range(len(json_response)):
+        temp_dict = {'id': json_response[i].get('id'), 'name': json_response[i].get('name')}
+        list_label_ids.append(temp_dict)
         i += 1
-    print(f"Found {len(listLabelIds)} Labels and extracted their Names and IDs.")
+    print(f"Found {len(list_label_ids)} Labels and extracted their Names and IDs.")
 
     print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.utcnow()}\n")
-    return listLabelIds
+    return list_label_ids
 
 #Get the Board's Custom Fields
-def getCustomFields():
+def get_custom_fields():
     print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.utcnow()}")
     
     #Formulate and send an HTTP request. Store the response and parse it as json.
-    requestBody = payloadAuthToken
-    requestUrl = f"{endpoint}boards/{BOARD_ID}/customFields"
-    response = requests.get(requestUrl, params=requestBody)
+    request_body = payload_auth_token
+    request_url = f"{endpoint}boards/{BOARD_ID}/customFields"
+    response = requests.get(request_url, params=request_body)
     response.raise_for_status()
-    jsonResponse = response.json()
+    json_response = response.json()
 
-    #Populate listCustomFields[] with the card info from jsonResponse
-    listCustomFields.clear()
-    listCustomFields.extend(jsonResponse)
+    #Populate list_custom_fields[] with the card info from json_response
+    list_custom_fields.clear()
+    list_custom_fields.extend(json_response)
 
     print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.utcnow()}\n")
-    return listCustomFields
+    return list_custom_fields
 
 #Get the Custom Field IDs
-def getCustomFieldIds():
+def get_custom_field_ids():
     print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.utcnow()}")
 
-    #Make sure getCustomFields() has been run
-    getCustomFields()
+    #Make sure get_custom_fields() has been run
+    get_custom_fields()
 
-    #Iterate through listCustomFields[] and populate listCustomFieldIds[] with the 'id' values
-    listCustomFieldIds.clear()
-    for i in range(len(listCustomFields)):
-        tempDict = {'id': listCustomFields[i].get('id'), 'name': listCustomFields[i].get('name')}
-        listCustomFieldIds.append(tempDict)
+    #Iterate through list_custom_fields[] and populate list_custom_field_ids[] with the 'id' values
+    list_custom_field_ids.clear()
+    for i in range(len(list_custom_fields)):
+        temp_dict = {'id': list_custom_fields[i].get('id'), 'name': list_custom_fields[i].get('name')}
+        list_custom_field_ids.append(temp_dict)
         i += 1
 
     print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.utcnow()}\n")
-    return listCustomFieldIds
+    return list_custom_field_ids
 
-#Get the actions[] for the provided idCard and return them #TO DO
-def getCardActions(idCard: str, filter: list):
+#Get the actions[] for the provided id_card and return them #TO DO
+def get_card_actions(id_card: str, filter: list):
     print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.utcnow()}")
 
     #Formulate and send an HTTP request. Store the reesponse and parse it as json.
-    payloadActionRequest = {'filter': filter}
-    payloadActionRequest.update(payloadAuthToken)    
-    urlCardRequest = f"{endpoint}cards/{idCard}/actions"
-    response = requests.get(urlCardRequest, params=payloadActionRequest)
+    payload_action_request = {'filter': filter}
+    payload_action_request.update(payload_auth_token)    
+    url_card_request = f"{endpoint}cards/{id_card}/actions"
+    response = requests.get(url_card_request, params=payload_action_request)
     response.raise_for_status()
-    jsonActions = response.json()
+    json_actions = response.json()
 
     print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.utcnow()}\n")
-    return jsonActions
+    return json_actions
 
-#Get the {pluginData} for the provided idCard
-def getPluginData(idCard: str):
+#Get the {pluginData} for the provided id_card
+def get_plugin_data(id_card: str):
     print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.utcnow()}")
 
     #Force the plugin to update by changing the front of the card, then sleep for 2 seconds to make sure the pluginData has time to update
-    forceUpdateJson = {'cover': {'color': 'green'}}
-    forceUpdateJson.update(payloadAuthToken)
-    putUpdateCard(forceUpdateJson, idCard)
-    forceUpdateJson.update(cover='')
-    putUpdateCard(forceUpdateJson, idCard)
+    force_update_json = {'cover': {'color': 'green'}}
+    force_update_json.update(payload_auth_token)
+    put_update_card(force_update_json, id_card)
+    force_update_json.update(cover='')
+    put_update_card(force_update_json, id_card)
     sleep(2)
 
     #Generate and transmit a GET pluginData request
-    requestBody = payloadAuthToken
-    requestUrl = f"{endpoint}cards/{idCard}/pluginData"
-    response = requests.get(requestUrl, params=requestBody)
+    request_body = payload_auth_token
+    request_url = f"{endpoint}cards/{id_card}/pluginData"
+    response = requests.get(request_url, params=request_body)
     response.raise_for_status()
-    jsonResponse = response.json()
+    json_response = response.json()
 
     print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.utcnow()}\n")
-    return jsonResponse
+    return json_response
 
 #Create a new Card, using the json provided in the (request)
-def postNewCard(request: dict):
+def post_new_card(request: dict):
     print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.utcnow()}")
     
     #Formulate an HTTP request
-    request.update(payloadAuthToken)
-    requestUrl = f"{endpoint}cards"
+    request.update(payload_auth_token)
+    request_url = f"{endpoint}cards"
 
-    jsonPayload = json.loads(json.dumps(request, indent=4, separators=(', ', ': ')))
-    postHeaders = {
+    json_payload = json.loads(json.dumps(request, indent=4, separators=(', ', ': ')))
+    post_headers = {
         'Accept-Encoding': 'gzip, deflate, br', 
         'Accept': '*/*', 
         'Content-Type': 'application/json',
         'Host': 'api.trello.com'
         }
 
-    #Send the HTTP request and set responseMsg with the status
-    response = requests.post(requestUrl, json=jsonPayload, headers=postHeaders)
+    #Send the HTTP request and set response_msg with the status
+    response = requests.post(request_url, json=json_payload, headers=post_headers)
     response.raise_for_status()
-    responseMsg = f"{response.status_code}: {response.reason}"
+    response_msg = f"{response.status_code}: {response.reason}"
     
     #This function expects the following:
     #body:
@@ -235,13 +235,13 @@ def postNewCard(request: dict):
         #pos - "top" OR "bottom" OR positive float
         #due - string (date)
         #dueComplete - boolean
-        #idList - string, target List ID, REQUIRED
+        #id_list - string, target List ID, REQUIRED
         #idMembers - [string]
         #idLabels - [idLabel]
         #urlSoruce - string (starting in http:// or https://)
         #fileSource - string (binary)
         #mimeType - string
-        #idCardSource - string (id of a Card to copy from)
+        #id_cardSource - string (id of a Card to copy from)
         #keepFromSource - string (properties to keep from source if copying)
         #address - string
         #locationName - string
@@ -250,35 +250,35 @@ def postNewCard(request: dict):
         #token: API Token
         
     print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.utcnow()}\n")
-    return [responseMsg, response.json()]
+    return [response_msg, response.json()]
 
-#Update an existing Card (idCard), using the json provided in the (request)
-def putUpdateCard(request: dict, idCard: str):
+#Update an existing Card (id_card), using the json provided in the (request)
+def put_update_card(request: dict, id_card: str):
     print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.utcnow()}")
     
     #Formulate an HTTP request
-    request.update(payloadAuthToken)
-    requestUrl = f"{endpoint}cards/{idCard}"
+    request.update(payload_auth_token)
+    request_url = f"{endpoint}cards/{id_card}"
 
     #Account for Custom Field updates
     if request.get('idCustomField') is None:
         pass
     else:
-        requestUrl += f"/customField/{request.get('idCustomField')}/item"
+        request_url += f"/customField/{request.get('idCustomField')}/item"
         del request['idCustomField']
 
-    jsonPayload = json.loads(json.dumps(request, indent=4, separators=(', ', ': ')))
-    postHeaders = {
+    json_payload = json.loads(json.dumps(request, indent=4, separators=(', ', ': ')))
+    post_headers = {
         'Accept-Encoding': 'gzip, deflate, br', 
         'Accept': '*/*', 
         'Content-Type': 'application/json',
         'Host': 'api.trello.com'
         }
    
-    #Send the HTTP request and set responseMsg with the status
-    response = requests.put(requestUrl, json=jsonPayload, headers=postHeaders)
+    #Send the HTTP request and set response_msg with the status
+    response = requests.put(request_url, json=json_payload, headers=post_headers)
     response.raise_for_status()
-    responseMsg = f"{response.status_code}: {response.reason}"
+    response_msg = f"{response.status_code}: {response.reason}"
 
     #This function expects the following:
     #request:
@@ -290,13 +290,13 @@ def putUpdateCard(request: dict, idCard: str):
         #pos - "top" OR "bottom" OR positive float
         #due - string (date)
         #dueComplete - boolean
-        #idList - string, target List ID, REQUIRED
+        #id_list - string, target List ID, REQUIRED
         #idMembers - [string]
         #idLabels - [idLabel]
         #urlSoruce - string (starting in http:// or https://)
         #fileSource - string (binary)
         #mimeType - string
-        #idCardSource - string (id of a Card to copy from)
+        #id_cardSource - string (id of a Card to copy from)
         #keepFromSource - string (properties to keep from source if copying)
         #address - string
         #locationName - string
@@ -306,59 +306,59 @@ def putUpdateCard(request: dict, idCard: str):
         #token: API Token
 
     print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.utcnow()}\n")
-    return [responseMsg, response.json()]
+    return [response_msg, response.json()]
 
 #Create a new Checklist, using the json provided in the (request)
-def postNewChecklist(request: dict):
+def post_new_checklist(request: dict):
     print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.utcnow()}")    
     
     #Formulate an HTTP request
-    request.update(payloadAuthToken)
-    requestUrl = f"{endpoint}checklists"
+    request.update(payload_auth_token)
+    request_url = f"{endpoint}checklists"
 
-    jsonPayload = json.loads(json.dumps(request, indent=4, separators=(', ', ': ')))
-    postHeaders = {
+    json_payload = json.loads(json.dumps(request, indent=4, separators=(', ', ': ')))
+    post_headers = {
         'Accept-Encoding': 'gzip, deflate, br', 
         'Accept': '*/*', 
         'Content-Type': 'application/json',
         'Host': 'api.trello.com'
         }
    
-    #Send the HTTP request and set responseMsg with the status
-    response = requests.post(requestUrl, json=jsonPayload, headers=postHeaders)
+    #Send the HTTP request and set response_msg with the status
+    response = requests.post(request_url, json=json_payload, headers=post_headers)
     response.raise_for_status()
-    responseMsg = f"{response.status_code}: {response.reason}"
+    response_msg = f"{response.status_code}: {response.reason}"
 
     #This function expects the following:
     #body:
-        #idCard - ID of the Card the Checklist should be added to (REQUIRED)
+        #id_card - ID of the Card the Checklist should be added to (REQUIRED)
         #name - string
         #pos - "top" OR "bottom" OR positive float
         #idChecklistSource - ID of a checklist to copy from
         
     print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.utcnow()}\n")
-    return [responseMsg, response.json()]
+    return [response_msg, response.json()]
 
 #Create a Checkitem on an existing Checklist (idChecklist), using the json provided in the (request)
-def postNewCheckItem(request: dict, idChecklist: str):
+def post_new_checkitem(request: dict, idChecklist: str):
     print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.utcnow()}")    
     
     #Formulate an HTTP request
-    request.update(payloadAuthToken)
-    requestUrl = f"{endpoint}checklists/{idChecklist}/checkItems"
+    request.update(payload_auth_token)
+    request_url = f"{endpoint}checklists/{idChecklist}/checkItems"
 
-    jsonPayload = json.loads(json.dumps(request, indent=4, separators=(', ', ': ')))
-    postHeaders = {
+    json_payload = json.loads(json.dumps(request, indent=4, separators=(', ', ': ')))
+    post_headers = {
         'Accept-Encoding': 'gzip, deflate, br', 
         'Accept': '*/*', 
         'Content-Type': 'application/json',
         'Host': 'api.trello.com'
         }
    
-    #Send the HTTP request and set responseMsg with the status
-    response = requests.post(requestUrl, json=jsonPayload, headers=postHeaders)
+    #Send the HTTP request and set response_msg with the status
+    response = requests.post(request_url, json=json_payload, headers=post_headers)
     response.raise_for_status()
-    responseMsg = f"{response.status_code}: {response.reason}"
+    response_msg = f"{response.status_code}: {response.reason}"
 
     #This function expects the following:
     #request:
@@ -369,7 +369,7 @@ def postNewCheckItem(request: dict, idChecklist: str):
         #checked - boolean
         
     print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.utcnow()}\n")
-    return [responseMsg, response.json()]
+    return [response_msg, response.json()]
 
 # TEST FUNCTIONS up to 3 times, sleeping for 2 seconds if it fails and backing off each time
 def main():
@@ -377,49 +377,49 @@ def main():
     sleepTime = 3
     for b in range(0, 3):
         try:
-            getListIds()
-            getCards()
-            getCardIds()
-            getLabelIds()
-            getCustomFields()
-            getCustomFieldIds()
+            get_list_ids()
+            get_cards()
+            get_card_ids()
+            get_label_ids()
+            get_custom_fields()
+            get_custom_field_ids()
 
             print("List of List IDs:")
-            for i in range(len(listListIds)):
-                print(f"{i+1}. {listListIds[i]}")
+            for i in range(len(list_list_ids)):
+                print(f"{i+1}. {list_list_ids[i]}")
                 i += 1
             print()
 
             print("List of Card IDs:")
-            for i in range(len(listCardIds)):
-                print(f"{i+1}. {listCardIds[i]}")
+            for i in range(len(list_card_ids)):
+                print(f"{i+1}. {list_card_ids[i]}")
                 i += 1
             print()
 
             print("List of Label IDs:")
-            for i in range(len(listLabelIds)):
-                print(f"{i+1}. {listLabelIds[i]}")
+            for i in range(len(list_label_ids)):
+                print(f"{i+1}. {list_label_ids[i]}")
                 i += 1
             print()
 
             print("List of Custom Field IDs:")
-            for i in range(len(listCustomFieldIds)):
-                print(f"{i+1}. {listCustomFieldIds[i]}")
+            for i in range(len(list_custom_field_ids)):
+                print(f"{i+1}. {list_custom_field_ids[i]}")
                 i += 1
             print()     
                   
             errored = None
 
         except Exception as errored:
-            exceptMsg = str(errored).replace(API_KEY, "API Key Hidden-")
-            exceptMsg = exceptMsg.replace(API_TOKEN, "API Token Hidden-")
+            except_msg = str(errored).replace(API_KEY, "API Key Hidden-")
+            except_msg = except_msg.replace(API_TOKEN, "API Token Hidden-")
             pass
 
         try: 
             errored
             break
         except NameError:
-            print(f"{exceptMsg}\n Sleeping for {sleepTime} seconds before trying again...")
+            print(f"{except_msg}\n Sleeping for {sleepTime} seconds before trying again...")
             sleep(sleepTime)
             sleepTime *= 2
         b += 1
