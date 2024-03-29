@@ -32,10 +32,10 @@ payload_auth_token = {'key': API_KEY, 'token': API_TOKEN}
 endpoint = "https://api.trello.com/1/"
 
 #lists for global use
-list_list_ids = []
+list_listIds = []
 list_cards = []
-list_card_ids = []
-list_label_ids = []
+list_cardIds = []
+list_labellIds = []
 list_custom_fields = []
 list_custom_field_ids = []
 
@@ -50,15 +50,15 @@ def get_list_ids():
     response.raise_for_status()
     json_response = response.json()
     
-    #Extract {"id": "<class 'str'>", "name": "<class 'str'>"} from each object in json_response and populate list_list_ids[]
+    #Extract {"id": "<class 'str'>", "name": "<class 'str'>"} from each object in json_response and populate list_listIds[]
     for i in range(len(json_response)):
         temp_dict = {'id': json_response[i].get('id'), 'name': json_response[i].get('name')}
-        list_list_ids.append(temp_dict)
+        list_listIds.append(temp_dict)
         i += 1
-    print(f"Found {len(list_list_ids)} Lists and extracted their Names and IDs.")
+    print(f"Found {len(list_listIds)} Lists and extracted their Names and IDs.")
 
     print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.utcnow()}\n")
-    return list_list_ids
+    return list_listIds
 
 #Get the Board's Cards
 def get_cards():
@@ -85,14 +85,14 @@ def get_cards():
 def get_card_ids():
     print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.utcnow()}")
 
-    #Iterate through list_cards[] and populate list_card_ids[] with the 'id' values
-    list_card_ids.clear()
+    #Iterate through list_cards[] and populate list_cardIds[] with the 'id' values
+    list_cardIds.clear()
     for i in range(len(list_cards)):
-        list_card_ids.append(list_cards[i].get('id'))
+        list_cardIds.append(list_cards[i].get('id'))
         i += 1
 
     print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.utcnow()}\n")
-    return list_card_ids
+    return list_cardIds
 
 #Get the Cards in a List
 def get_cards_in_list(id_list: str):
@@ -125,15 +125,15 @@ def get_label_ids():
     response.raise_for_status()
     json_response = response.json()
 
-    #Extract {"id": "<class 'str'>", "name": "<class 'str'>"} from each object in json_response and populate list_label_ids[]
+    #Extract {"id": "<class 'str'>", "name": "<class 'str'>"} from each object in json_response and populate list_labellIds[]
     for i in range(len(json_response)):
         temp_dict = {'id': json_response[i].get('id'), 'name': json_response[i].get('name')}
-        list_label_ids.append(temp_dict)
+        list_labellIds.append(temp_dict)
         i += 1
-    print(f"Found {len(list_label_ids)} Labels and extracted their Names and IDs.")
+    print(f"Found {len(list_labellIds)} Labels and extracted their Names and IDs.")
 
     print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.utcnow()}\n")
-    return list_label_ids
+    return list_labellIds
 
 #Get the Board's Custom Fields
 def get_custom_fields():
@@ -385,20 +385,20 @@ def main():
             get_custom_field_ids()
 
             print("List of List IDs:")
-            for i in range(len(list_list_ids)):
-                print(f"{i+1}. {list_list_ids[i]}")
+            for i in range(len(list_listIds)):
+                print(f"{i+1}. {list_listIds[i]}")
                 i += 1
             print()
 
             print("List of Card IDs:")
-            for i in range(len(list_card_ids)):
-                print(f"{i+1}. {list_card_ids[i]}")
+            for i in range(len(list_cardIds)):
+                print(f"{i+1}. {list_cardIds[i]}")
                 i += 1
             print()
 
             print("List of Label IDs:")
-            for i in range(len(list_label_ids)):
-                print(f"{i+1}. {list_label_ids[i]}")
+            for i in range(len(list_labellIds)):
+                print(f"{i+1}. {list_labellIds[i]}")
                 i += 1
             print()
 
