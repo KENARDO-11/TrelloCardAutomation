@@ -2,9 +2,9 @@
 
 ## TO DO:
 * Implement error-handling
+* Improve function documentation
 * Cover color key binding
 * Handling for card -> checklist -> checkitem dependency flow
-* General cleanup
 * Future: integration with a Trello Card Button that invokes a webhook to export the card and crunch it into a yaml task
     * Future Future: Daily and Weekly buttons that also update tasklist.yml
 

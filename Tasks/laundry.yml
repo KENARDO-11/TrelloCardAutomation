@@ -12,7 +12,7 @@ New Card:
   cover:    
     color: "blue"               
 
-#Base Checklist
+#Base Checklist (Colors)
 New Checklist0:
   idCard: "self" 
   name: "Colors" 
@@ -39,6 +39,7 @@ New CheckItem2:
   checked: False  
 
 #Extra Checklists
+#Whites
 New Checklist1:
   idCard: "self"
   name: "Whites"
@@ -63,9 +64,10 @@ New CheckItem5:
   pos: "bottom"         
   checked: False 
 
+#Pants
 New Checklist2:
   idCard: "self"
-  name: "Sheets"
+  name: "Pants"
   pos: "bottom"
 
 New CheckItem6:
@@ -84,6 +86,32 @@ New CheckItem7:
 New CheckItem8:
   request:        
     idChecklist: 2
+  name: "Stow"    
+  pos: "bottom"          
+  checked: False 
+
+#Sheets
+New Checklist3:
+  idCard: "self"
+  name: "Sheets"
+  pos: "bottom"
+
+New CheckItem9:
+  request:        
+    idChecklist: 3
+  name: "Wash"    
+  pos: "top"          
+  checked: False  
+
+New CheckItem10:
+  request:        
+    idChecklist: 3
+  name: "Dry"    
+  checked: False  
+
+New CheckItem11:
+  request:        
+    idChecklist: 3
   name: "Stow"    
   pos: "bottom"          
   checked: False 

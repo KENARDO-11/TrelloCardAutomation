@@ -12,40 +12,40 @@ from apiCaller import *
 import apiScheduler
 
 # Globals can go here if needed:
-readLists = apiScheduler.readLists()
-dictLists = readLists[0]
-listLists = readLists[1]
+read_lists = apiScheduler.read_lists()
+dict_lists = read_lists[0]
+list_lists = read_lists[1]
 
 # Determine whether a Card represents a Delivered package and report back to the parent function
-def packageTracking(idCard: str):
+def package_tracking(idCard: str):
     print(f"Starting {sys._getframe().f_code.co_name} for Card {idCard}")
     
-    #Initialize enrichedCardDetails
-    enrichedCardDetails = {
+    #Initialize enriched_card_details
+    enriched_card_details = {
         'request': {
             'idCard': idCard
         },
         'closed': False
     }
 
-    pluginDataResponse = getPluginData(idCard)
-    if len(pluginDataResponse) == 0:
-        return enrichedCardDetails
+    plugin_data_response = get_plugin_data(idCard)
+    if len(plugin_data_response) == 0:
+        return enriched_card_details
 
-    pluginValue = json.loads(pluginDataResponse[0].get('value'))
-    pluginStatus = pluginValue.get('statuses')[0]
+    plugin_value = json.loads(plugin_data_response[0].get('value'))
+    plugin_status = plugin_value.get('statuses')[0]
     
-    if pluginStatus.get('status') == 'DELIVERED':
-        enrichedCardDetails.update(closed=True)
+    if plugin_status.get('status') == 'DELIVERED':
+        enriched_card_details.update(closed=True)
 
-    return enrichedCardDetails
+    return enriched_card_details
 
 # Determine whether a Card has been in the 'To Do' list longer than 10 days and report back to the parent function
-def staleCards(idCard: str, idList: str):
+def stale_cards(idCard: str, idList: str):
     print(f"Starting {sys._getframe().f_code.co_name} for Card {idCard}")
 
-    #Initialize enrichedCardDetails
-    enrichedCardDetails = {
+    #Initialize enriched_card_details
+    enriched_card_details = {
         'request': {
             'idCard': idCard
         },
@@ -53,47 +53,47 @@ def staleCards(idCard: str, idList: str):
     }
 
     #Other useful locals
-    listFilters = [
+    list_filters = [
         'updateCard',
         'createCard',
         'convertCardFromCheckItem',
         'copyCard',
         'moveCardToBoard'
     ]
-    toDoDate = ''
+    to_do_date = ''
 
     #Get the idList for Backburner
-    backburnerIndex = dictLists.get('Backburner')
-    backburneridList = listLists[backburnerIndex].get('id')
+    backburner_index = dict_lists.get('Backburner')
+    backburner_id_list = list_lists[backburner_index].get('id')
 
-    actionResponse = getCardActions(idCard, listFilters)
-    del listFilters[0]
+    action_response = get_card_actions(idCard, list_filters)
+    del list_filters[0]
 
-    for i in range(len(actionResponse)):
-        tempDict = actionResponse[i]
+    for i in range(len(action_response)):
+        temp_dict = action_response[i]
 
-        if tempDict.get('type') in listFilters:
-            toDoDate = tempDict.get('date')
+        if temp_dict.get('type') in list_filters:
+            to_do_date = temp_dict.get('date')
             break
         else:
-            tempDictData = tempDict.get('data')
-            if 'listAfter' in tempDictData:
-                tempListAfter = tempDictData.get('listAfter')
-                tempIdList = tempListAfter.get('id')
-                if tempIdList == idList:
-                    toDoDate = tempDict.get('date')
+            temp_dict_data = temp_dict.get('data')
+            if 'list_after' in temp_dict_data:
+                temp_list_after = temp_dict_data.get('list_after')
+                temp_id_list = temp_list_after.get('id')
+                if temp_id_list == idList:
+                    to_do_date = temp_dict.get('date')
                     break
         i += 1
 
-    datetimeToDoDate = isoparse(toDoDate)
-    datetimeNow = datetime.datetime.now().astimezone(tz=datetime.timezone.utc)
+    datetime_to_do_date = isoparse(to_do_date)
+    datetime_now = datetime.datetime.now().astimezone(tz=datetime.timezone.utc)
 
-    # timeInToDo = datetimeNow.date() - datetimeToDoDate.date()
-    timeInToDo = datetimeNow - datetimeToDoDate
-    daysInToDo = timeInToDo.days
+    # time_in_to_do = datetime_now.date() - datetime_to_do_date.date()
+    time_in_to_do = datetime_now - datetime_to_do_date
+    days_in_to_do = time_in_to_do.days
 
-    print(f'Card has been in To Do status for {daysInToDo} days')
-    if daysInToDo >= 10:
-        enrichedCardDetails.update(idList=backburneridList)
+    print(f'Card has been in To Do status for {days_in_to_do} days')
+    if days_in_to_do >= 10:
+        enriched_card_details.update(idList=backburner_id_list)
 
-    return enrichedCardDetails
+    return enriched_card_details
