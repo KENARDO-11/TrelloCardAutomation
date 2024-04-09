@@ -41,7 +41,7 @@ list_custom_field_ids = []
 
 #Get the Board's List IDs
 def get_list_ids():
-    print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.utcnow()}")
+    print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.now(datetime.UTC)}")
 
     #Formulate and send an HTTP request. Store the response and parse it as json.
     request_body = payload_auth_token
@@ -57,12 +57,12 @@ def get_list_ids():
         i += 1
     print(f"Found {len(list_listIds)} Lists and extracted their Names and IDs.")
 
-    print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.utcnow()}\n")
+    print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.now(datetime.UTC)}\n")
     return list_listIds
 
 #Get the Board's Cards
 def get_cards():
-    print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.utcnow()}")
+    print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.now(datetime.UTC)}")
     
     #Formulate and send an HTTP request. Store the response and parse it as json.
     request_body = payload_auth_token
@@ -78,12 +78,12 @@ def get_cards():
     print(f"Found {len(list_cards)} Cards.")
 
 
-    print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.utcnow()}\n")
+    print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.now(datetime.UTC)}\n")
     return list_cards
 
 #Get Card IDs from list_cards[]
 def get_card_ids():
-    print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.utcnow()}")
+    print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.now(datetime.UTC)}")
 
     #Iterate through list_cards[] and populate list_cardIds[] with the 'id' values
     list_cardIds.clear()
@@ -91,12 +91,12 @@ def get_card_ids():
         list_cardIds.append(list_cards[i].get('id'))
         i += 1
 
-    print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.utcnow()}\n")
+    print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.now(datetime.UTC)}\n")
     return list_cardIds
 
 #Get the Cards in a List
 def get_cards_in_list(id_list: str):
-    print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.utcnow()}")
+    print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.now(datetime.UTC)}")
     
     #Formulate and send an HTTP request. Store the response and parse it as json.
     request_body = payload_auth_token
@@ -111,12 +111,12 @@ def get_cards_in_list(id_list: str):
     print(f"Found {len(list_cards_in_list)} Cards.")
 
 
-    print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.utcnow()}\n")
+    print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.now(datetime.UTC)}\n")
     return list_cards_in_list
 
 #Get the Board's Label IDs
 def get_label_ids():
-    print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.utcnow()}")
+    print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.now(datetime.UTC)}")
     
     #Formulate and send an HTTP request. Store the response and parse it as json.
     request_body = payload_auth_token
@@ -132,12 +132,12 @@ def get_label_ids():
         i += 1
     print(f"Found {len(list_labellIds)} Labels and extracted their Names and IDs.")
 
-    print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.utcnow()}\n")
+    print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.now(datetime.UTC)}\n")
     return list_labellIds
 
 #Get the Board's Custom Fields
 def get_custom_fields():
-    print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.utcnow()}")
+    print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.now(datetime.UTC)}")
     
     #Formulate and send an HTTP request. Store the response and parse it as json.
     request_body = payload_auth_token
@@ -150,12 +150,12 @@ def get_custom_fields():
     list_custom_fields.clear()
     list_custom_fields.extend(json_response)
 
-    print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.utcnow()}\n")
+    print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.now(datetime.UTC)}\n")
     return list_custom_fields
 
 #Get the Custom Field IDs
 def get_custom_field_ids():
-    print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.utcnow()}")
+    print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.now(datetime.UTC)}")
 
     #Make sure get_custom_fields() has been run
     get_custom_fields()
@@ -167,12 +167,12 @@ def get_custom_field_ids():
         list_custom_field_ids.append(temp_dict)
         i += 1
 
-    print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.utcnow()}\n")
+    print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.now(datetime.UTC)}\n")
     return list_custom_field_ids
 
 #Get the actions[] for the provided id_card and return them #TO DO
 def get_card_actions(id_card: str, filter: list):
-    print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.utcnow()}")
+    print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.now(datetime.UTC)}")
 
     #Formulate and send an HTTP request. Store the reesponse and parse it as json.
     payload_action_request = {'filter': filter}
@@ -182,12 +182,12 @@ def get_card_actions(id_card: str, filter: list):
     response.raise_for_status()
     json_actions = response.json()
 
-    print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.utcnow()}\n")
+    print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.now(datetime.UTC)}\n")
     return json_actions
 
 #Get the {pluginData} for the provided id_card
 def get_plugin_data(id_card: str):
-    print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.utcnow()}")
+    print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.now(datetime.UTC)}")
 
     #Force the plugin to update by changing the front of the card, then sleep for 2 seconds to make sure the pluginData has time to update
     force_update_json = {'cover': {'color': 'green'}}
@@ -204,12 +204,12 @@ def get_plugin_data(id_card: str):
     response.raise_for_status()
     json_response = response.json()
 
-    print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.utcnow()}\n")
+    print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.now(datetime.UTC)}\n")
     return json_response
 
 #Create a new Card, using the json provided in the (request)
 def post_new_card(request: dict):
-    print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.utcnow()}")
+    print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.now(datetime.UTC)}")
     
     #Formulate an HTTP request
     request.update(payload_auth_token)
@@ -249,12 +249,12 @@ def post_new_card(request: dict):
         #key: API Key
         #token: API Token
         
-    print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.utcnow()}\n")
+    print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.now(datetime.UTC)}\n")
     return [response_msg, response.json()]
 
 #Update an existing Card (id_card), using the json provided in the (request)
 def put_update_card(request: dict, id_card: str):
-    print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.utcnow()}")
+    print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.now(datetime.UTC)}")
     
     #Formulate an HTTP request
     request.update(payload_auth_token)
@@ -305,12 +305,12 @@ def put_update_card(request: dict, id_card: str):
         #key: API Key
         #token: API Token
 
-    print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.utcnow()}\n")
+    print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.now(datetime.UTC)}\n")
     return [response_msg, response.json()]
 
 #Create a new Checklist, using the json provided in the (request)
 def post_new_checklist(request: dict):
-    print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.utcnow()}")    
+    print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.now(datetime.UTC)}")    
     
     #Formulate an HTTP request
     request.update(payload_auth_token)
@@ -336,12 +336,12 @@ def post_new_checklist(request: dict):
         #pos - "top" OR "bottom" OR positive float
         #idChecklistSource - ID of a checklist to copy from
         
-    print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.utcnow()}\n")
+    print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.now(datetime.UTC)}\n")
     return [response_msg, response.json()]
 
 #Create a Checkitem on an existing Checklist (idChecklist), using the json provided in the (request)
 def post_new_checkitem(request: dict, idChecklist: str):
-    print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.utcnow()}")    
+    print(f"Starting {sys._getframe().f_code.co_name} at {datetime.datetime.now(datetime.UTC)}")    
     
     #Formulate an HTTP request
     request.update(payload_auth_token)
@@ -368,7 +368,7 @@ def post_new_checkitem(request: dict, idChecklist: str):
         #pos - "top" OR "bottom" OR positive float
         #checked - boolean
         
-    print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.utcnow()}\n")
+    print(f"{sys._getframe().f_code.co_name} completed successfully at {datetime.datetime.now(datetime.UTC)}\n")
     return [response_msg, response.json()]
 
 # TEST FUNCTIONS up to 3 times, sleeping for 2 seconds if it fails and backing off each time
