@@ -12,17 +12,6 @@ Task0:
   - friday
   - saturday
 Task1:
-  File: japanese.yml
-  Last Run: '2026-03-06'
-  Name: Japanese Studies
-  Run Days:
-  - sunday
-  - monday
-  - tuesday
-  - wednesday
-  - thursday
-  - friday
-Task2:
   File: stalecards.yml
   Last Run: '2026-03-06'
   Name: Move Stale Cards
