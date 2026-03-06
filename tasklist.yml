@@ -1,7 +1,7 @@
 ---
 Task0:
   File: feedscirocco.yml
-  Last Run: '2023-01-02'
+  Last Run: '2026-03-06'
   Name: Feed Scirocco
   Run Days:
   - sunday
@@ -12,19 +12,8 @@ Task0:
   - friday
   - saturday
 Task1:
-  File: japanese.yml
-  Last Run: '2023-01-02'
-  Name: Japanese Studies
-  Run Days:
-  - sunday
-  - monday
-  - tuesday
-  - wednesday
-  - thursday
-  - friday
-Task2:
   File: stalecards.yml
-  Last Run: '2023-01-02'
+  Last Run: '2026-03-06'
   Name: Move Stale Cards
   Run Days:
   - sunday
@@ -36,25 +25,25 @@ Task2:
   - saturday
 Task3:
   File: catlitter.yml
-  Last Run: '2022-11-29'
+  Last Run: '2026-03-03'
   Name: Cat Liter
   Run Days:
   - tuesday
 Task4:
   File: recycling.yml
-  Last Run: '2022-11-29'
+  Last Run: '2026-03-03'
   Name: Take Out Recycling
   Run Days:
   - tuesday
 Task5:
   File: updateblocked.yml
-  Last Run: '2022-12-01'
+  Last Run: '2026-03-05'
   Name: Update Blocked Card
   Run Days:
   - thursday
 Task6:
   File: packagetracking.yml
-  Last Run: '2023-01-02'
+  Last Run: '2026-03-06'
   Name: Package Tracking
   Run Days:
   - sunday
