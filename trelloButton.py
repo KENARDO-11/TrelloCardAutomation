@@ -10,9 +10,9 @@ def main():
     taskFile = f'{sys.path[0]}{os.sep}Tasks{os.sep}'
     taskFile += TASK
     print(f"Starting Task")
-    readLists()
-    readLabels()
-    readTask(taskFile)
+    read_lists()
+    read_labels()
+    read_task(taskFile)
 
 if __name__ == '__main__':
     main()
