@@ -12,7 +12,7 @@ load_dotenv()
 
 #Trello API authentication secrets
 API_KEY = os.environ.get("TRELLO_KEY", default="No Key Found")
-API_TOKEN = os.environ.get("TRELLO_TOKEN", default="No Token Found")
+API_TOKEN = os.environ.get("TRELLO_TOKEN_26", default="No Token Found")
 BOARD_ID = os.environ.get("TRELLO_BOARD", default="No Board ID Found")
 
 if type(BOARD_ID) == str:
