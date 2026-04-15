@@ -4,6 +4,7 @@
 name: Run apiScheduler
 
 on:
+  workflow_dispatch:
   # push:
   #   branches: 
   #   - main
