@@ -19,18 +19,17 @@ jobs:
     env:
       TRELLO_KEY: ${{ secrets.TRELLO_KEY }}
       TRELLO_TOKEN: ${{ secrets.TRELLO_TOKEN }}
-      TRELLO_TOKEN_26: ${{ secrets.TRELLO_TOKEN_26 }}
       TRELLO_BOARD: ${{ secrets.TRELLO_BOARD }}
       TASK: ${{ inputs.taskfile }}
     
     steps:
     - name: Checkout Repo
-      uses: actions/checkout@v3
+      uses: actions/checkout@v6
       with:
         ref: actions/TasklistUpdates
     
     - name: Set up Python 3.10
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v6
       with:
         python-version: "3.10"
 
