@@ -16,7 +16,6 @@ jobs:
     env:
       TRELLO_KEY: ${{ secrets.TRELLO_KEY }}
       TRELLO_TOKEN: ${{ secrets.TRELLO_TOKEN }}
-      TRELLO_TOKEN_26: ${{ secrets.TRELLO_TOKEN_26 }}
       TRELLO_BOARD: ${{ secrets.TRELLO_BOARD }}
     
     steps:
